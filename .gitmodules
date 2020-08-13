@@ -1,0 +1,3 @@
+[submodule "libEmbedded"]
+	path = libEmbedded
+	url = https://github.com/Squantor/libEmbedded.git
