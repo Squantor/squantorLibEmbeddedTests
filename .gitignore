@@ -1,0 +1,11 @@
+# intermediate files
+build/
+
+# build output
+bin/
+
+# log files
+*.log
+
+# doxygen output
+documentation/
