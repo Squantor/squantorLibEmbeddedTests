@@ -61,11 +61,11 @@ MU_TEST(testArraySize)
  * testing the util::array empty method
  * 
  */
-MU_TEST(testArraySize)
+MU_TEST(testArrayEmpty)
 {
     util::array<int, 10> testNonEmptyArray = {0,1,2,3,4,5,6,7,8,9};
     mu_check(testNonEmptyArray.empty() == false);
-    
+
     util::array<int, 0> testEmptyArray;
     mu_check(testEmptyArray.empty() == true);
 }
@@ -80,6 +80,7 @@ MU_TEST_SUITE(arrayTests)
 {
     MU_SUITE_CONFIGURE(&arrayTestSetup, &arrayTestTeardown);
     MU_RUN_TEST(testArraySize);
+    MU_RUN_TEST(testArrayEmpty);
 }
 
 /**
