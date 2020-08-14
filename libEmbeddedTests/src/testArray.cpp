@@ -71,6 +71,18 @@ MU_TEST(testArrayEmpty)
 }
 
 /** 
+ * \brief util::array test data()
+ * 
+ * testing the util::array data method
+ * 
+ */
+MU_TEST(testArrayData)
+{
+    util::array<int, 10> testNonEmptyArray = {0,1,2,3,4,5,6,7,8,9};
+    mu_check(testNonEmptyArray.data() != nullptr);
+}
+
+/** 
  * \brief util::array test suite
  * 
  * util::array test suite
@@ -81,6 +93,7 @@ MU_TEST_SUITE(arrayTests)
     MU_SUITE_CONFIGURE(&arrayTestSetup, &arrayTestTeardown);
     MU_RUN_TEST(testArraySize);
     MU_RUN_TEST(testArrayEmpty);
+    MU_RUN_TEST(testArrayData);
 }
 
 /**
