@@ -24,11 +24,15 @@
 #
 # Version: 20200722
 
+# additional library includes
+include MinUnit/MinUnit.mk
+
 # project settings
 TARGET = PC
 
 # project sources
-FILES += $(PROJECT)/src/main.cpp
+FILES += $(PROJECT)/src/main.cpp \
+$(PROJECT)/src/testArray.cpp
 
 INCLUDES += -I$(PROJECT)/inc
 

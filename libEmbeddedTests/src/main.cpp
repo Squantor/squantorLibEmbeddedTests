@@ -7,6 +7,11 @@
 #include <stdio.h>
 #include <iostream>
 #include <MinUnit.hpp>
+#include <testArray.hpp>
+
+int minunitRun; /* tests run */
+int minunitFailures; /* tests failed */
+int minunitAsserts; /* asserts run */
 
 /**
  * Program entry point
@@ -17,6 +22,12 @@
  */
 int main()
 {
-    printf("Hello World!\n");
-    return 0;
+    executeArrayTests();
+    printf("Tests run: %d\n", minunitRun);
+    printf("Tests failed: %d\n", minunitFailures);
+    printf("Checks executed: %d\n", minunitAsserts);
+    if(minunitFailures == 0)
+        return 0;
+    else
+        return -1;   
 }
