@@ -4,9 +4,10 @@
  * Copyright (c) 2020-2020 Bart Bilos
  * For conditions of distribution and use, see LICENSE file
  */
-/**
- *  Include definitions for testArray.cpp
- */
+/** \file testArray.hpp
+ * Include definitions for util::array tests
+ * Include definitions for util::array tests
+ */ 
 #ifndef TEST_ARRAY_HPP
 #define TEST_ARRAY_HPP
 

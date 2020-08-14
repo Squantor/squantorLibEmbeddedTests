@@ -2,4 +2,4 @@
 PROJECT_NAME = "LibEmbedded Tests"
 OUTPUT_DIRECTORY = documentation/LibEmbeddedTests
 INCLUDE_PATH = libEmbeddedTests/inc libEmbedded/inc MinUnit/inc
-INPUT = libEmbeddedTests/src libEmbeddedTests/inc
+INPUT = libEmbeddedTests/src libEmbeddedTests/inc MinUnit/inc libEmbedded/inc

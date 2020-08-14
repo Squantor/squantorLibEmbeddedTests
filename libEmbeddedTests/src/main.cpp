@@ -4,17 +4,23 @@
  * Copyright (c) 2020-2020 Bart Bilos
  * For conditions of distribution and use, see LICENSE file
  */
+
+/** 
+ * \file main.cpp
+ * 
+ * Main program entry point
+ * 
+ * Program execution starts here in main().
+ */ 
 #include <stdio.h>
 #include <iostream>
 #include <MinUnit.hpp>
 #include <testArray.hpp>
 
-int minunitRun; /* tests run */
-int minunitFailures; /* tests failed */
-int minunitAsserts; /* asserts run */
+MU_TEST_GLOBAL_STATE;    /** Global test state */
 
 /**
- * Program entry point
+ * \brief Program entry point
  * 
  * Program entry point, execution starts here. Any unittest initialisation happens here.
  * 
