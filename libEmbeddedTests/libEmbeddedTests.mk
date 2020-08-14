@@ -26,6 +26,7 @@
 
 # additional library includes
 include MinUnit/MinUnit.mk
+include libEmbedded/libEmbedded.mk
 
 # project settings
 TARGET = PC

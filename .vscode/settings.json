@@ -2,7 +2,17 @@
     "files.associations": {
         "test.h": "c",
         "cstddef": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "array": "cpp",
+        "ratio": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "string": "cpp",
+        "unordered_map": "cpp",
+        "vector": "cpp",
+        "string_view": "cpp",
+        "initializer_list": "cpp",
+        "valarray": "cpp"
     },
     "C_Cpp.default.cppStandard": "c++20",
     "C_Cpp.default.cStandard": "c11",

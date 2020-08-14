@@ -13,6 +13,7 @@
  */
 #include <testArray.hpp>
 #include <MinUnit.hpp>
+#include <array.hpp>
 
 MU_TEST_TEST_STATE; /** Test suite local state */
 
@@ -45,9 +46,11 @@ static void arrayTestTeardown(void)
  * util::array constructor test
  * 
  */
-MU_TEST(testConstructor)
+MU_TEST(testArraySize)
 {
-    mu_check(true == true);
+    util::array<int, 10> testArray = {0,1,2,3,4,5,6,7,8,9};
+    volatile size_t arraysize = testArray.size();
+    mu_check(testArray.size() == 10);
 }
 
 /** 
@@ -59,7 +62,7 @@ MU_TEST(testConstructor)
 MU_TEST_SUITE(arrayTests)
 {
     MU_SUITE_CONFIGURE(&arrayTestSetup, &arrayTestTeardown);
-    MU_RUN_TEST(testConstructor);
+    MU_RUN_TEST(testArraySize);
 }
 
 /**
