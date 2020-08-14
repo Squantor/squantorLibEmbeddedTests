@@ -41,16 +41,33 @@ static void arrayTestTeardown(void)
 }
 
 /** 
- * \brief util::array constructor test
+ * \brief util::array test size()
  * 
- * util::array constructor test
+ * testing the util::array size method
  * 
  */
 MU_TEST(testArraySize)
 {
-    util::array<int, 10> testArray = {0,1,2,3,4,5,6,7,8,9};
-    volatile size_t arraysize = testArray.size();
-    mu_check(testArray.size() == 10);
+    util::array<int, 10> testNonEmptyArray = {0,1,2,3,4,5,6,7,8,9};
+    mu_check(testNonEmptyArray.size() == 10);
+
+    util::array<int, 0> testEmptyArray;
+    mu_check(testEmptyArray.size() == 0);
+}
+
+/** 
+ * \brief util::array test empty()
+ * 
+ * testing the util::array empty method
+ * 
+ */
+MU_TEST(testArraySize)
+{
+    util::array<int, 10> testNonEmptyArray = {0,1,2,3,4,5,6,7,8,9};
+    mu_check(testNonEmptyArray.empty() == false);
+    
+    util::array<int, 0> testEmptyArray;
+    mu_check(testEmptyArray.empty() == true);
 }
 
 /** 
