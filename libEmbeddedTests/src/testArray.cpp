@@ -14,7 +14,6 @@ Tests for util::array
 #include <testArray.hpp>
 #include <MinUnit.hpp>
 #include <array.hpp>
-#include <array>
 
 MU_TEST_TEST_STATE; /** Test suite local state */
 
@@ -69,8 +68,11 @@ testing the util::array data method
 */
 MU_TEST(testArrayData)
 {
-    util::array<int, 10> testNonEmptyArray {0,1,2,3,4,5,6,7,8,9};
-    mu_check(testNonEmptyArray.data() != nullptr);
+    util::array<int, 10> testData {0,1,2,3,4,5,6,7,8,9};
+    mu_check(testData.data() != nullptr);
+    util::array<int, 10> const testConstData {0,1,2,3,4,5,6,7,8,9};
+    mu_check(testConstData.data() != nullptr);
+
 }
 
 /** \brief util::array test indexing operator
