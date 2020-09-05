@@ -72,6 +72,20 @@ MU_TEST(testArrayData)
     mu_check(testNonEmptyArray.data() != nullptr);
 }
 
+/** \brief util::array test indexing operator
+
+testing the util::array array indexing operator
+*/
+MU_TEST(testArrayIndexing)
+{
+    util::array<int, 10> testIndexing {0,1,2,3,4,5,6,7,8,9};
+    mu_check(testIndexing[0] == 0);
+    mu_check(testIndexing[3] == 3);
+    util::array<int, 10> const testConstIndexing {0,1,2,3,4,5,6,7,8,9};
+    mu_check(testConstIndexing[1] == 1);
+    mu_check(testConstIndexing[5] == 5);
+}
+
 /** \brief util::array test suite
 
 util::array test suite
@@ -82,6 +96,7 @@ MU_TEST_SUITE(arrayTests)
     MU_RUN_TEST(testArraySize);
     MU_RUN_TEST(testArrayEmpty);
     MU_RUN_TEST(testArrayData);
+    MU_RUN_TEST(testArrayIndexing);
 }
 
 /** \brief execute tests for util::array
