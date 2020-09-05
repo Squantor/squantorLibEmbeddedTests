@@ -43,7 +43,7 @@ testing the util::array size method
 */
 MU_TEST(testArraySize)
 {
-    util::array<int, 10> testNonEmptyArray = {0,1,2,3,4,5,6,7,8,9};
+    util::array<int, 10> testNonEmptyArray {0,1,2,3,4,5,6,7,8,9};
     mu_check(testNonEmptyArray.size() == 10);
 
     util::array<int, 0> testEmptyArray;
@@ -56,7 +56,7 @@ testing the util::array empty method
  */
 MU_TEST(testArrayEmpty)
 {
-    util::array<int, 10> testNonEmptyArray = {0,1,2,3,4,5,6,7,8,9};
+    util::array<int, 10> testNonEmptyArray {0,1,2,3,4,5,6,7,8,9};
     mu_check(testNonEmptyArray.empty() == false);
 
     util::array<int, 0> testEmptyArray;
@@ -69,7 +69,7 @@ testing the util::array data method
 */
 MU_TEST(testArrayData)
 {
-    util::array<int, 10> testNonEmptyArray = {0,1,2,3,4,5,6,7,8,9};
+    util::array<int, 10> testNonEmptyArray {0,1,2,3,4,5,6,7,8,9};
     mu_check(testNonEmptyArray.data() != nullptr);
 }
 
@@ -87,6 +87,18 @@ MU_TEST(testArrayIndexing)
     mu_check(testConstIndexing[5] == 5);
 }
 
+/** \brief util::array test front method
+
+testing the util::array front method for retrieving the first element
+*/
+MU_TEST(testArrayFront)
+{
+    util::array<int, 5> testFront {42,1,2,3,4};
+    mu_check(testFront.front() == 42);
+    util::array<int, 1> const testConstFront {55};
+    mu_check(testConstFront.front() == 55);
+}
+
 /** \brief util::array test suite
 
 util::array test suite
@@ -98,6 +110,7 @@ MU_TEST_SUITE(arrayTests)
     MU_RUN_TEST(testArrayEmpty);
     MU_RUN_TEST(testArrayData);
     MU_RUN_TEST(testArrayIndexing);
+    MU_RUN_TEST(testArrayFront);
 }
 
 /** \brief execute tests for util::array
