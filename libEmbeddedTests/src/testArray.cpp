@@ -14,6 +14,7 @@ Tests for util::array
 #include <testArray.hpp>
 #include <MinUnit.hpp>
 #include <array.hpp>
+#include <array>
 
 MU_TEST_TEST_STATE; /** Test suite local state */
 
