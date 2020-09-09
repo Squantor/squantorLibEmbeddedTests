@@ -113,6 +113,22 @@ MU_TEST(testArrayBack)
     mu_check(testConstBack.back() == 43);
 }
 
+/** \brief util::array test begin method
+
+testing the util::array begin method for getting a pointer to the first element
+*/
+MU_TEST(testArrayBegin)
+{
+    util::array<int, 5> testBegin {42,1,2,3,22};
+    int *testBeginData = testBegin.data();
+    mu_check(testBegin.begin() == testBeginData);
+    mu_check(*(testBegin.begin()) == 42);
+    util::array<int, 3> const testConstBegin {52, 0, 43};
+    const int *testConstBeginData = testConstBegin.data();
+    mu_check(testConstBegin.begin() == testConstBeginData);
+    mu_check(*(testConstBegin.begin()) == 52);
+}
+
 /** \brief util::array test suite
 
 util::array test suite
@@ -126,6 +142,7 @@ MU_TEST_SUITE(arrayTests)
     MU_RUN_TEST(testArrayIndexing);
     MU_RUN_TEST(testArrayFront);
     MU_RUN_TEST(testArrayBack);
+    MU_RUN_TEST(testArrayBegin);
 }
 
 /** \brief execute tests for util::array
