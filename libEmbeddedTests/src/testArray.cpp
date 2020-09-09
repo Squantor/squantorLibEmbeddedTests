@@ -143,6 +143,22 @@ MU_TEST(testArrayEnd)
     mu_check(testConstEnd.end() == &testConstEndData[3]);
 }
 
+/** \brief util::array test end method
+
+testing the util::array end method for getting a pointer beyond the last element
+*/
+MU_TEST(testArrayRangeLoop)
+{
+    util::array<int, 5> testRangeLoop {1,2,3,4,5};
+    int sum = 0;
+    for(const int& a : testRangeLoop)
+    {
+        sum += a;
+    }
+    mu_check(sum == 15);
+}
+
+
 /** \brief util::array test suite
 
 util::array test suite
@@ -158,6 +174,7 @@ MU_TEST_SUITE(arrayTests)
     MU_RUN_TEST(testArrayBack);
     MU_RUN_TEST(testArrayBegin);
     MU_RUN_TEST(testArrayEnd);
+    MU_RUN_TEST(testArrayRangeLoop);
 }
 
 /** \brief execute tests for util::array
