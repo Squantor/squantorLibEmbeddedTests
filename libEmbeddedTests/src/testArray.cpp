@@ -129,6 +129,20 @@ MU_TEST(testArrayBegin)
     mu_check(*(testConstBegin.begin()) == 52);
 }
 
+/** \brief util::array test end method
+
+testing the util::array end method for getting a pointer beyond the last element
+*/
+MU_TEST(testArrayEnd)
+{
+    util::array<int, 5> testEnd {42,1,2,3,22};
+    int *testEndData = testEnd.data();
+    mu_check(testEnd.end() == &testEndData[5]);
+    util::array<int, 3> const testConstEnd {52, 0, 43};
+    const int *testConstEndData = testConstEnd.data();
+    mu_check(testConstEnd.end() == &testConstEndData[3]);
+}
+
 /** \brief util::array test suite
 
 util::array test suite
@@ -143,6 +157,7 @@ MU_TEST_SUITE(arrayTests)
     MU_RUN_TEST(testArrayFront);
     MU_RUN_TEST(testArrayBack);
     MU_RUN_TEST(testArrayBegin);
+    MU_RUN_TEST(testArrayEnd);
 }
 
 /** \brief execute tests for util::array
