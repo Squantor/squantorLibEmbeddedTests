@@ -101,6 +101,18 @@ MU_TEST(testArrayFront)
     mu_check(testConstFront.front() == 55);
 }
 
+/** \brief util::array test back method
+
+testing the util::array back method for retrieving the last element
+*/
+MU_TEST(testArrayBack)
+{
+    util::array<int, 5> testBack {42,1,2,3,22};
+    mu_check(testBack.back() == 22);
+    util::array<int, 3> const testConstBack {42, 0, 43};
+    mu_check(testConstBack.back() == 43);
+}
+
 /** \brief util::array test suite
 
 util::array test suite
@@ -113,6 +125,7 @@ MU_TEST_SUITE(arrayTests)
     MU_RUN_TEST(testArrayData);
     MU_RUN_TEST(testArrayIndexing);
     MU_RUN_TEST(testArrayFront);
+    MU_RUN_TEST(testArrayBack);
 }
 
 /** \brief execute tests for util::array
