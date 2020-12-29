@@ -25,7 +25,7 @@
 # Version: 20200722
 
 # additional library includes
-include MinUnit/MinUnit.mk
+include squantorMinUnit/squantorMinUnit.mk
 include libEmbedded/libEmbedded.mk
 
 # project settings

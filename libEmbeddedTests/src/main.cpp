@@ -14,10 +14,7 @@
  */ 
 #include <stdio.h>
 #include <iostream>
-#include <MinUnit.hpp>
-#include <testArray.hpp>
-
-MU_TEST_GLOBAL_STATE;    /** Global test state */
+#include <MinUnit.h>
 
 /**
  * \brief Program entry point
@@ -28,11 +25,11 @@ MU_TEST_GLOBAL_STATE;    /** Global test state */
  */
 int main()
 {
-    executeArrayTests();
-    printf("Tests run: %d\n", minunitRun);
-    printf("Tests failed: %d\n", minunitFailures);
-    printf("Checks executed: %d\n", minunitAsserts);
-    if(minunitFailures == 0)
+    minunitRun();
+    printf("Tests run: %d\n", minunitTestState.executed);
+    printf("Tests failed: %d\n", minunitTestState.failed);
+    printf("Checks executed: %d\n", minunitTestState.checks);
+    if(minunitTestState.failed == 0)
         return 0;
     else
         return -1;   

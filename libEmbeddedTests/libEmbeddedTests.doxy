@@ -1,5 +1,5 @@
 # doxygen settings to override from the default config
 PROJECT_NAME = "LibEmbedded Tests"
 OUTPUT_DIRECTORY = documentation/LibEmbeddedTests
-INCLUDE_PATH = libEmbeddedTests/inc libEmbedded/inc MinUnit/inc
+INCLUDE_PATH = libEmbeddedTests/inc libEmbedded/inc squantorMinUnit/inc
 INPUT = libEmbeddedTests/src libEmbeddedTests/inc MinUnit/inc libEmbedded/inc

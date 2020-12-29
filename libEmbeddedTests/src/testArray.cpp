@@ -11,67 +11,46 @@ For conditions of distribution and use, see LICENSE file
  
 Tests for util::array
 */
-#include <testArray.hpp>
-#include <MinUnit.hpp>
+#include <MinUnit.h>
 #include <array.hpp>
 
-MU_TEST_TEST_STATE; /** Test suite local state */
-
-
-/** \brief util::array setup
-
-util::array setup
-*/
-static void arrayTestSetup(void)
-{
-
-}
-
-/** \brief util::array teardown
-
-util::array teardown
-*/
-static void arrayTestTeardown(void)
-{
-
-}
 
 /** \brief util::array test size()
 
 testing the util::array size method
 */
-MU_TEST(testArraySize)
+MINUNIT_ADD(testArraySize)
 {
     util::array<int, 10> testNonEmptyArray {0,1,2,3,4,5,6,7,8,9};
-    mu_check(testNonEmptyArray.size() == 10);
+    minUnitCheck(testNonEmptyArray.size() == 10);
 
     util::array<int, 0> testEmptyArray;
-    mu_check(testEmptyArray.size() == 0);
+    minUnitCheck(testEmptyArray.size() == 0);
 }
 
 /** \brief util::array test empty()
 
 testing the util::array empty method
  */
-MU_TEST(testArrayEmpty)
+MINUNIT_ADD(testArrayEmpty)
 {
     util::array<int, 10> testNonEmptyArray {0,1,2,3,4,5,6,7,8,9};
-    mu_check(testNonEmptyArray.empty() == false);
+    minUnitCheck(testNonEmptyArray.empty() == false);
 
     util::array<int, 0> testEmptyArray;
-    mu_check(testEmptyArray.empty() == true);
+    minUnitCheck(testEmptyArray.empty() == true);
 }
 
 /** \brief util::array test data()
 
 testing the util::array data method
 */
-MU_TEST(testArrayData)
+MINUNIT_ADD(testArrayData)
 {
     util::array<int, 10> testData {0,1,2,3,4,5,6,7,8,9};
-    mu_check(testData.data() != nullptr);
+    minUnitCheck(testData.data() != nullptr);
     util::array<int, 10> const testConstData {0,1,2,3,4,5,6,7,8,9};
-    mu_check(testConstData.data() != nullptr);
+    minUnitCheck(testConstData.data() != nullptr);
 
 }
 
@@ -79,75 +58,75 @@ MU_TEST(testArrayData)
 
 testing the util::array array indexing operator
 */
-MU_TEST(testArrayIndexing)
+MINUNIT_ADD(testArrayIndexing)
 {
     util::array<int, 10> testIndexing {0,1,2,3,4,5,6,7,8,9};
-    mu_check(testIndexing[0] == 0);
-    mu_check(testIndexing[3] == 3);
+    minUnitCheck(testIndexing[0] == 0);
+    minUnitCheck(testIndexing[3] == 3);
     util::array<int, 10> const testConstIndexing {0,1,2,3,4,5,6,7,8,9};
-    mu_check(testConstIndexing[1] == 1);
-    mu_check(testConstIndexing[5] == 5);
+    minUnitCheck(testConstIndexing[1] == 1);
+    minUnitCheck(testConstIndexing[5] == 5);
 }
 
 /** \brief util::array test front method
 
 testing the util::array front method for retrieving the first element
 */
-MU_TEST(testArrayFront)
+MINUNIT_ADD(testArrayFront)
 {
     util::array<int, 5> testFront {42,1,2,3,4};
-    mu_check(testFront.front() == 42);
+    minUnitCheck(testFront.front() == 42);
     util::array<int, 1> const testConstFront {55};
-    mu_check(testConstFront.front() == 55);
+    minUnitCheck(testConstFront.front() == 55);
 }
 
 /** \brief util::array test back method
 
 testing the util::array back method for retrieving the last element
 */
-MU_TEST(testArrayBack)
+MINUNIT_ADD(testArrayBack)
 {
     util::array<int, 5> testBack {42,1,2,3,22};
-    mu_check(testBack.back() == 22);
+    minUnitCheck(testBack.back() == 22);
     util::array<int, 3> const testConstBack {42, 0, 43};
-    mu_check(testConstBack.back() == 43);
+    minUnitCheck(testConstBack.back() == 43);
 }
 
 /** \brief util::array test begin method
 
 testing the util::array begin method for getting a pointer to the first element
 */
-MU_TEST(testArrayBegin)
+MINUNIT_ADD(testArrayBegin)
 {
     util::array<int, 5> testBegin {42,1,2,3,22};
     int *testBeginData = testBegin.data();
-    mu_check(testBegin.begin() == testBeginData);
-    mu_check(*(testBegin.begin()) == 42);
+    minUnitCheck(testBegin.begin() == testBeginData);
+    minUnitCheck(*(testBegin.begin()) == 42);
     util::array<int, 3> const testConstBegin {52, 0, 43};
     const int *testConstBeginData = testConstBegin.data();
-    mu_check(testConstBegin.begin() == testConstBeginData);
-    mu_check(*(testConstBegin.begin()) == 52);
+    minUnitCheck(testConstBegin.begin() == testConstBeginData);
+    minUnitCheck(*(testConstBegin.begin()) == 52);
 }
 
 /** \brief util::array test end method
 
 testing the util::array end method for getting a pointer beyond the last element
 */
-MU_TEST(testArrayEnd)
+MINUNIT_ADD(testArrayEnd)
 {
     util::array<int, 5> testEnd {42,1,2,3,22};
     int *testEndData = testEnd.data();
-    mu_check(testEnd.end() == &testEndData[5]);
+    minUnitCheck(testEnd.end() == &testEndData[5]);
     util::array<int, 3> const testConstEnd {52, 0, 43};
     const int *testConstEndData = testConstEnd.data();
-    mu_check(testConstEnd.end() == &testConstEndData[3]);
+    minUnitCheck(testConstEnd.end() == &testConstEndData[3]);
 }
 
-/** \brief util::array test end method
+/** \brief test out a rangeloop
 
 testing the util::array end method for getting a pointer beyond the last element
 */
-MU_TEST(testArrayRangeLoop)
+MINUNIT_ADD(testArrayRangeLoop)
 {
     util::array<int, 5> testRangeLoop {1,2,3,4,5};
     int sum = 0;
@@ -155,33 +134,19 @@ MU_TEST(testArrayRangeLoop)
     {
         sum += a;
     }
-    mu_check(sum == 15);
+    minUnitCheck(sum == 15);
 }
 
+/** \brief test out a const rangeloop
 
-/** \brief util::array test suite
-
-util::array test suite
 */
-MU_TEST_SUITE(arrayTests)
+MINUNIT_ADD(testArrayConstRangeLoop)
 {
-    MU_SUITE_CONFIGURE(&arrayTestSetup, &arrayTestTeardown);
-    MU_RUN_TEST(testArraySize);
-    MU_RUN_TEST(testArrayEmpty);
-    MU_RUN_TEST(testArrayData);
-    MU_RUN_TEST(testArrayIndexing);
-    MU_RUN_TEST(testArrayFront);
-    MU_RUN_TEST(testArrayBack);
-    MU_RUN_TEST(testArrayBegin);
-    MU_RUN_TEST(testArrayEnd);
-    MU_RUN_TEST(testArrayRangeLoop);
-}
-
-/** \brief execute tests for util::array
-
-Entry point for executing all the tests for the util::array datastructure defined in libEmbedded.
-*/
-void executeArrayTests(void)
-{
-    MU_RUN_SUITE(arrayTests);
+    const util::array<int, 5> testRangeLoop {1,2,3,4,5};
+    int sum = 0;
+    for(const int& a : testRangeLoop)
+    {
+        sum += a;
+    }
+    minUnitCheck(sum == 15);
 }

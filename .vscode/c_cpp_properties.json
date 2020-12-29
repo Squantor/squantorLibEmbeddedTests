@@ -5,7 +5,7 @@
             "includePath": [
                 "${workspaceFolder}/libEmbeddedTests/inc",
                 "${workspaceFolder}/libEmbedded/inc",
-                "${workspaceFolder}/MinUnit/inc"
+                "${workspaceFolder}/squantorMinUnit/inc"
             ],
             "defines": [
                 "DEBUG"
