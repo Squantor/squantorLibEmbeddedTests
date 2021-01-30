@@ -1,6 +1,6 @@
 [submodule "libEmbedded"]
 	path = libEmbedded
-	url = https://github.com/Squantor/libEmbedded.git
+	url = ssh://git@github.com:Squantor/libEmbedded.git
 [submodule "squantorMinUnit"]
 	path = squantorMinUnit
-	url = https://github.com/Squantor/squantorMinUnit.git
+	url = ssh://git@github.com:Squantor/squantorMinUnit.git
