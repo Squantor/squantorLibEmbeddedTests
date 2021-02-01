@@ -6,7 +6,7 @@
         "request": "launch",
         "program": "${workspaceFolder}/bin/libEmbeddedTests/debug/libEmbeddedTests.elf",
         "args": [],
-        "stopAtEntry": true,
+        //"stopAtEntry": true,
         "cwd": "${workspaceFolder}",
         "environment": [],
         "externalConsole": false,

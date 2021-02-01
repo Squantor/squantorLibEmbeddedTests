@@ -20,7 +20,7 @@ TEMPLATE_RINGBUF_FUNCTIONS(test, int, 10);
 
 void ringbufMacroSetup(void)
 {
-
+    testReset();
 }
 
 void ringbufMacroTeardown(void)
@@ -28,12 +28,58 @@ void ringbufMacroTeardown(void)
 
 }
 
-
 MINUNIT_ADD(ringbufEmpty)
 {
     ringbufMacroSetup();
-    testReset();
     minUnitCheck(testEmpty() == true);
     minUnitCheck(testFull() == false);
+    ringbufMacroTeardown();
+}
+
+MINUNIT_ADD(ringbufPushBack)
+{
+    int number = 42;
+    ringbufMacroSetup();
+    minUnitCheck(testEmpty() == true);
+    minUnitCheck(testPushBack(&number) == true);
+    minUnitCheck(testEmpty() == false);
+    ringbufMacroTeardown();
+}
+
+MINUNIT_ADD(ringbufPushBackFull)
+{
+    int number = 42;
+    ringbufMacroSetup();
+    minUnitCheck(testEmpty() == true);
+    for(int i = 0; i < 10; i++)
+    {
+        minUnitCheck(testPushBack(&i) == true);
+    }
+    minUnitCheck(testPushBack(&number) == false);
+    minUnitCheck(testFull() == true);
+    ringbufMacroTeardown();
+}
+
+MINUNIT_ADD(ringbufPushFront)
+{
+    int number = 42;
+    ringbufMacroSetup();
+    minUnitCheck(testEmpty() == true);
+    minUnitCheck(testPushFront(&number) == true);
+    minUnitCheck(testEmpty() == false);
+    ringbufMacroTeardown();
+}
+
+MINUNIT_ADD(ringbufPushFrontFull)
+{
+    int number = 42;
+    ringbufMacroSetup();
+    minUnitCheck(testEmpty() == true);
+    for(int i = 0; i < 10; i++)
+    {
+        minUnitCheck(testPushFront(&i) == true);
+    }
+    minUnitCheck(testPushFront(&number) == false);
+    minUnitCheck(testFull() == true);
     ringbufMacroTeardown();
 }
