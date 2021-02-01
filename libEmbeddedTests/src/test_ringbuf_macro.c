@@ -14,9 +14,9 @@
 #include <MinUnit.h>
 #include <ringbuf_macro.h>
 
-TEMPLATE_QUEUE_VARS(test, int, 10);
-TEMPLATE_QUEUE_PROTO(test, int);
-TEMPLATE_QUEUE_FUNCTIONS(test, int, 10);
+TEMPLATE_RINGBUF_VARS(test, int, 10);
+TEMPLATE_RINGBUF_PROTO(test, int);
+TEMPLATE_RINGBUF_FUNCTIONS(test, int, 10);
 
 void ringbufMacroSetup(void)
 {
@@ -32,6 +32,8 @@ void ringbufMacroTeardown(void)
 MINUNIT_ADD(ringbufEmpty)
 {
     ringbufMacroSetup();
-    minUnitCheck(1==1);
+    testReset();
+    minUnitCheck(testEmpty() == true);
+    minUnitCheck(testFull() == false);
     ringbufMacroTeardown();
 }
