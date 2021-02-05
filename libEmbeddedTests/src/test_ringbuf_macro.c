@@ -83,3 +83,16 @@ MINUNIT_ADD(ringbufPushFrontFull)
     minUnitCheck(testFull() == true);
     ringbufMacroTeardown();
 }
+
+MINUNIT_ADD(ringbufPopBack)
+{
+    int number = 42;
+    int output = 0;
+    ringbufMacroSetup();
+    minUnitCheck(testPopBack(&output) == false);
+    minUnitCheck(testPushFront(&number) == true);
+    minUnitCheck(testPopBack(&output) == true);
+    minUnitCheck(output == 42);
+    minUnitCheck(testPopBack(&output) == false);
+    ringbufMacroTeardown();
+}
