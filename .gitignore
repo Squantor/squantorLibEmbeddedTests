@@ -9,3 +9,6 @@ bin/
 
 # doxygen output
 documentation/
+
+# visual studio code files
+.vscode/settings.json
