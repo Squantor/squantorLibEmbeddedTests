@@ -39,3 +39,17 @@ MINUNIT_ADD(movingAverageUint16Reset)
     testU16Reset();
     minUnitCheck(testU16Get() == 0);
 }
+
+MINUNIT_ADD(movingAverageUint16Get)
+{
+    minUnitCheck(testU16Get() == 0);
+    testU16Add(1);
+    testU16Add(2);
+    testU16Add(3);
+    testU16Add(4);
+    minUnitCheck(testU16Get() == 2);
+    testU16Add(5);
+    minUnitCheck(testU16Get() == 3);
+    testU16Add(6);
+    minUnitCheck(testU16Get() == 4);
+}
