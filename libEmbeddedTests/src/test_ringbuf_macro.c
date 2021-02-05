@@ -123,5 +123,29 @@ MINUNIT_ADD(ringbufPopFront)
     int output = 0;
     ringbufMacroSetup();
     minUnitCheck(testPopFront(&output) == false);
+    minUnitCheck(testPushFront(&number) == true);
+    minUnitCheck(testPopFront(&output) == true);
+    minUnitCheck(output == 42);
+    minUnitCheck(testPopFront(&output) == false);
+    for(int i = 0; i < 10; i++)
+    {
+        testPushFront(&i);
+    }
+    for(int i = 9; i >= 0; i--)
+    {
+        minUnitCheck(testPopFront(&output) == true);
+        minUnitCheck(output == i);
+    }
+    minUnitCheck(testPopFront(&output) == false);
+    for(int i = 0; i < 10; i++)
+    {
+        testPushBack(&i);
+    }
+    for(int i = 0; i < 10; i++)
+    {
+        minUnitCheck(testPopFront(&output) == true);
+        minUnitCheck(output == i);
+    }
+    minUnitCheck(testPopFront(&output) == false);
     ringbufMacroTeardown();
 }
