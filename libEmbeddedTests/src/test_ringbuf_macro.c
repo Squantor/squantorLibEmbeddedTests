@@ -94,5 +94,15 @@ MINUNIT_ADD(ringbufPopBack)
     minUnitCheck(testPopBack(&output) == true);
     minUnitCheck(output == 42);
     minUnitCheck(testPopBack(&output) == false);
+    for(int i = 0; i < 10; i++)
+    {
+        testPushFront(&i);
+    }
+    for(int i = 0; i < 10; i++)
+    {
+        minUnitCheck(testPopBack(&output) == true);
+        minUnitCheck(output == i);
+    }
+    minUnitCheck(testPopBack(&output) == false);
     ringbufMacroTeardown();
 }
