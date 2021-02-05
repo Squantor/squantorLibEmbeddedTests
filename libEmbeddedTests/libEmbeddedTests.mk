@@ -28,7 +28,8 @@ $(PROJECT)/src/test_dswrite.c \
 $(PROJECT)/src/test_dummy.c \
 $(PROJECT)/src/test_parse_ansi.c \
 $(PROJECT)/src/test_prompt_mini.c \
-$(PROJECT)/src/test_ringbuf_macro.c
+$(PROJECT)/src/test_ringbuf_macro.c \
+$(PROJECT)/src/test_moving_average.c
 
 INCLUDES += -I$(PROJECT)/inc
 
