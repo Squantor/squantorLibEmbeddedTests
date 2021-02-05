@@ -7,16 +7,14 @@
 /** 
  * \file test_ringbuf_macro.c
  * 
- * Main program entry point
- * 
- * Program execution starts here in main().
+ * All tests for the ring buffer template macro
  */ 
 #include <MinUnit.h>
 #include <ringbuf_macro.h>
 
-TEMPLATE_RINGBUF_VARS(test, int, 10);
-TEMPLATE_RINGBUF_PROTO(test, int);
-TEMPLATE_RINGBUF_FUNCTIONS(test, int, 10);
+RINGBUF_VARS(test, int, 10);
+RINGBUF_PROTO(test, int);
+RINGBUF_FUNCTIONS(test, int, 10);
 
 void ringbufMacroSetup(void)
 {
