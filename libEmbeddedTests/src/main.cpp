@@ -36,9 +36,9 @@ int main()
 {
     minunitRun();
     printf("Tests run: %d\n", minunitTestState.executed);
-    printf("Tests failed: %d\n", minunitTestState.failed);
+    printf("Tests failed: %d\n", minunitTestState.failures);
     printf("Checks executed: %d\n", minunitTestState.checks);
-    if(minunitTestState.failed == 0)
+    if(minunitTestState.failures == 0)
         return 0;
     else
         return -1;   
