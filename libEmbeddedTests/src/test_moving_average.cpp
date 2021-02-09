@@ -14,4 +14,14 @@
 #include <stdint.h>
 #include <moving_average.hpp>
 
-util::movingAverage<uint16_t, 5> movingAverageDutU16;
+util::movingAverage<uint16_t, 5> movingAverageDUTu16;
+
+MINUNIT_ADD(movingAverageCppReset)
+{
+    movingAverageDUTu16.reset();
+    minUnitCheck(movingAverageDUTu16.get() == 0);
+    movingAverageDUTu16.add(10);
+    minUnitCheck(movingAverageDUTu16.get() != 0);
+    movingAverageDUTu16.reset();
+    minUnitCheck(movingAverageDUTu16.get() == 0);
+}
