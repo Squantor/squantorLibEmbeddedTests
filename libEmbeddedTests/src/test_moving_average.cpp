@@ -14,14 +14,62 @@
 #include <stdint.h>
 #include <moving_average.hpp>
 
-util::MovingAverage<uint16_t, 5> movingAverageDUTu16;
+util::MovingAverage<uint16_t, 5> movingAverageDutU16;
+util::MovingAverage<uint32_t, 3> movingAverageDutU32;
+util::MovingAverage<double, 4> movingAverageDutDouble;
 
 MINUNIT_ADD(movingAverageCppReset)
 {
-    movingAverageDUTu16.reset();
-    minUnitCheck(movingAverageDUTu16.get() == 0);
-    movingAverageDUTu16.add(10);
-    minUnitCheck(movingAverageDUTu16.get() != 0);
-    movingAverageDUTu16.reset();
-    minUnitCheck(movingAverageDUTu16.get() == 0);
+    movingAverageDutU16.reset();
+    minUnitCheck(movingAverageDutU16.get() == 0);
+    movingAverageDutU16.add(10);
+    minUnitCheck(movingAverageDutU16.get() != 0);
+    movingAverageDutU16.reset();
+    minUnitCheck(movingAverageDutU16.get() == 0);
 }
+
+MINUNIT_ADD(MovingAverageCppAverage)
+{
+    movingAverageDutU16.reset();
+    movingAverageDutU16.add(1);
+    minUnitCheck(movingAverageDutU16.get() == 0);
+    movingAverageDutU16.add(2);
+    minUnitCheck(movingAverageDutU16.get() == 0);
+    movingAverageDutU16.add(3);
+    minUnitCheck(movingAverageDutU16.get() == 1);
+    movingAverageDutU16.add(4);
+    minUnitCheck(movingAverageDutU16.get() == 2);
+    movingAverageDutU16.add(5);
+    minUnitCheck(movingAverageDutU16.get() == 3);
+    movingAverageDutU16.add(5);
+    movingAverageDutU16.add(6);
+    movingAverageDutU16.add(7);
+    minUnitCheck(movingAverageDutU16.get() == 5);
+}
+
+MINUNIT_ADD(MovingAverageCppU32)
+{
+    movingAverageDutU32.reset();
+    movingAverageDutU32.add(5);
+    movingAverageDutU32.add(5);
+    movingAverageDutU32.add(5);
+    minUnitCheck(movingAverageDutU32.get() == 5);
+    movingAverageDutU32.add(42);
+    minUnitCheck(movingAverageDutU32.get() == 17);
+}
+
+MINUNIT_ADD(MovingAverageCppDouble)
+{
+    movingAverageDutDouble.reset();
+    movingAverageDutDouble.add(1.5);
+    minUnitCheck(movingAverageDutDouble.get() == 0.375);
+    movingAverageDutDouble.add(2.5);
+    minUnitCheck(movingAverageDutDouble.get() == 1.0);
+    movingAverageDutDouble.add(3.5);
+    minUnitCheck(movingAverageDutDouble.get() == 1.875);
+    movingAverageDutDouble.add(4.5);
+    minUnitCheck(movingAverageDutDouble.get() == 3);
+}
+
+
+
