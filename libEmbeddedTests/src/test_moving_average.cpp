@@ -70,6 +70,3 @@ MINUNIT_ADD(MovingAverageCppDouble)
     movingAverageDutDouble.add(4.5);
     minUnitCheck(movingAverageDutDouble.get() == 3);
 }
-
-
-
