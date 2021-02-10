@@ -30,7 +30,8 @@ $(PROJECT)/src/test_parse_ansi.c \
 $(PROJECT)/src/test_prompt_mini.c \
 $(PROJECT)/src/test_ringbuf_macro.c \
 $(PROJECT)/src/test_moving_average.c \
-$(PROJECT)/src/test_moving_average.cpp
+$(PROJECT)/src/test_moving_average.cpp \
+$(PROJECT)/src/test_ringbuf.cpp
 
 INCLUDES += -I$(PROJECT)/inc
 
