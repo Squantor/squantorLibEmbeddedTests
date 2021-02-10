@@ -14,7 +14,7 @@
 #include <stdint.h>
 #include <moving_average.hpp>
 
-util::movingAverage<uint16_t, 5> movingAverageDUTu16;
+util::MovingAverage<uint16_t, 5> movingAverageDUTu16;
 
 MINUNIT_ADD(movingAverageCppReset)
 {
