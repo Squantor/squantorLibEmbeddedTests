@@ -13,7 +13,7 @@
 #include <stdint.h>
 #include <ringbuf.hpp>
 
-util::RingBuffer<uint16_t, 5> RingBufferDutU16;
+util::RingBuffer<uint16_t, 10> RingBufferDutU16;
 
 MINUNIT_ADD(RingBufferCppEmpty)
 {
@@ -111,10 +111,10 @@ MINUNIT_ADD(RingBufferCppPopFront)
     {
         RingBufferDutU16.PushFront(i);
     }
-    for(int i = 9; i >= 0; i--)
+    for(int i = 0; i < 10; i++)
     {
         minUnitCheck(RingBufferDutU16.PopFront(output) == true);
-        minUnitCheck(output == i);
+        minUnitCheck(output == 9 - i);
     }
     minUnitCheck(RingBufferDutU16.PopFront(output) == false);
     for(uint16_t i = 0; i < 10; i++)
