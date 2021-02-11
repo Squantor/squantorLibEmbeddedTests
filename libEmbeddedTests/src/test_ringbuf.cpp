@@ -27,7 +27,7 @@ MINUNIT_ADD(RingBufferCppPushBack)
     uint16_t number = 42;
     RingBufferDutU16.reset();
     minUnitCheck(RingBufferDutU16.empty() == true);
-    minUnitCheck(RingBufferDutU16.PushBack(number) == true);
+    minUnitCheck(RingBufferDutU16.pushBack(number) == true);
     minUnitCheck(RingBufferDutU16.empty() == false);
 }
 
@@ -38,9 +38,9 @@ MINUNIT_ADD(RingBufferCppPushBackFull)
     minUnitCheck(RingBufferDutU16.empty() == true);
     for(uint16_t i = 0; i < 10; i++)
     {
-        minUnitCheck(RingBufferDutU16.PushBack(i) == true);
+        minUnitCheck(RingBufferDutU16.pushBack(i) == true);
     }
-    minUnitCheck(RingBufferDutU16.PushBack(number) == false);
+    minUnitCheck(RingBufferDutU16.pushBack(number) == false);
     minUnitCheck(RingBufferDutU16.full() == true);
 }
 
@@ -49,7 +49,7 @@ MINUNIT_ADD(RingBufferCppPushFront)
     uint16_t number = 42;
     RingBufferDutU16.reset();
     minUnitCheck(RingBufferDutU16.empty() == true);
-    minUnitCheck(RingBufferDutU16.PushFront(number) == true);
+    minUnitCheck(RingBufferDutU16.pushFront(number) == true);
     minUnitCheck(RingBufferDutU16.empty() == false);
 }
 
@@ -60,9 +60,9 @@ MINUNIT_ADD(RingBufferCppPushFrontFull)
     minUnitCheck(RingBufferDutU16.empty() == true);
     for(uint16_t i = 0; i < 10; i++)
     {
-        minUnitCheck(RingBufferDutU16.PushFront(i) == true);
+        minUnitCheck(RingBufferDutU16.pushFront(i) == true);
     }
-    minUnitCheck(RingBufferDutU16.PushFront(number) == false);
+    minUnitCheck(RingBufferDutU16.pushFront(number) == false);
     minUnitCheck(RingBufferDutU16.full() == true);
 }
 
@@ -71,60 +71,60 @@ MINUNIT_ADD(RingBufferCppPopBack)
     uint16_t number = 42;
     uint16_t output = 0;
     RingBufferDutU16.reset();
-    minUnitCheck(RingBufferDutU16.PopBack(output) == false);
-    minUnitCheck(RingBufferDutU16.PushFront(number) == true);
-    minUnitCheck(RingBufferDutU16.PopBack(output) == true);
+    minUnitCheck(RingBufferDutU16.popBack(output) == false);
+    minUnitCheck(RingBufferDutU16.pushFront(number) == true);
+    minUnitCheck(RingBufferDutU16.popBack(output) == true);
     minUnitCheck(output == 42);
-    minUnitCheck(RingBufferDutU16.PopBack(output) == false);
+    minUnitCheck(RingBufferDutU16.popBack(output) == false);
     for(uint16_t i = 0; i < 10; i++)
     {
-        RingBufferDutU16.PushFront(i);
+        RingBufferDutU16.pushFront(i);
     }
     for(uint16_t i = 0; i < 10; i++)
     {
-        minUnitCheck(RingBufferDutU16.PopBack(output) == true);
+        minUnitCheck(RingBufferDutU16.popBack(output) == true);
         minUnitCheck(output == i);
     }
-    minUnitCheck(RingBufferDutU16.PopBack(output) == false);
+    minUnitCheck(RingBufferDutU16.popBack(output) == false);
     for(uint16_t i = 0; i < 10; i++)
     {
-        RingBufferDutU16.PushBack(i);
+        RingBufferDutU16.pushBack(i);
     }
     for(uint16_t i = 0; i < 10; i++)
     {
-        minUnitCheck(RingBufferDutU16.PopBack(output) == true);
+        minUnitCheck(RingBufferDutU16.popBack(output) == true);
         minUnitCheck(output == 9 - i);
     }
-    minUnitCheck(RingBufferDutU16.PopBack(output) == false);
+    minUnitCheck(RingBufferDutU16.popBack(output) == false);
 }
 
 MINUNIT_ADD(RingBufferCppPopFront)
 {
     uint16_t number = 42;
     uint16_t output = 0;
-    minUnitCheck(RingBufferDutU16.PopFront(output) == false);
-    minUnitCheck(RingBufferDutU16.PushFront(number) == true);
-    minUnitCheck(RingBufferDutU16.PopFront(output) == true);
+    minUnitCheck(RingBufferDutU16.popFront(output) == false);
+    minUnitCheck(RingBufferDutU16.pushFront(number) == true);
+    minUnitCheck(RingBufferDutU16.popFront(output) == true);
     minUnitCheck(output == 42);
-    minUnitCheck(RingBufferDutU16.PopFront(output) == false);
+    minUnitCheck(RingBufferDutU16.popFront(output) == false);
     for(uint16_t i = 0; i < 10; i++)
     {
-        RingBufferDutU16.PushFront(i);
+        RingBufferDutU16.pushFront(i);
     }
     for(int i = 0; i < 10; i++)
     {
-        minUnitCheck(RingBufferDutU16.PopFront(output) == true);
+        minUnitCheck(RingBufferDutU16.popFront(output) == true);
         minUnitCheck(output == 9 - i);
     }
-    minUnitCheck(RingBufferDutU16.PopFront(output) == false);
+    minUnitCheck(RingBufferDutU16.popFront(output) == false);
     for(uint16_t i = 0; i < 10; i++)
     {
-        RingBufferDutU16.PushBack(i);
+        RingBufferDutU16.pushBack(i);
     }
     for(uint16_t i = 0; i < 10; i++)
     {
-        minUnitCheck(RingBufferDutU16.PopFront(output) == true);
+        minUnitCheck(RingBufferDutU16.popFront(output) == true);
         minUnitCheck(output == i);
     }
-    minUnitCheck(RingBufferDutU16.PopFront(output) == false);
+    minUnitCheck(RingBufferDutU16.popFront(output) == false);
 }
