@@ -14,23 +14,27 @@
 #include <stdint.h>
 #include <moving_average.hpp>
 
-util::MovingAverage<uint16_t, 5> movingAverageDutU16;
-util::MovingAverage<uint32_t, 3> movingAverageDutU32;
-util::MovingAverage<double, 4> movingAverageDutDouble;
+util::MovingAverage<uint16_t, 5> movingAverageDutU16(0);
+util::MovingAverage<uint32_t, 3> movingAverageDutU32(0);
+util::MovingAverage<double, 4> movingAverageDutDouble(0);
 
 MINUNIT_ADD(movingAverageCppReset)
 {
-    movingAverageDutU16.reset();
+    movingAverageDutU16.reset(0);
     minUnitCheck(movingAverageDutU16.get() == 0);
     movingAverageDutU16.add(10);
     minUnitCheck(movingAverageDutU16.get() != 0);
-    movingAverageDutU16.reset();
+    movingAverageDutU16.reset(0);
+    minUnitCheck(movingAverageDutU16.get() == 0);
+    movingAverageDutU16.reset(10);
+    minUnitCheck(movingAverageDutU16.get() == 10);
+    movingAverageDutU16.reset(0);
     minUnitCheck(movingAverageDutU16.get() == 0);
 }
 
 MINUNIT_ADD(MovingAverageCppAverage)
 {
-    movingAverageDutU16.reset();
+    movingAverageDutU16.reset(0);
     movingAverageDutU16.add(1);
     minUnitCheck(movingAverageDutU16.get() == 0);
     movingAverageDutU16.add(2);
@@ -49,7 +53,7 @@ MINUNIT_ADD(MovingAverageCppAverage)
 
 MINUNIT_ADD(MovingAverageCppU32)
 {
-    movingAverageDutU32.reset();
+    movingAverageDutU32.reset(0);
     movingAverageDutU32.add(5);
     movingAverageDutU32.add(5);
     movingAverageDutU32.add(5);
@@ -60,7 +64,7 @@ MINUNIT_ADD(MovingAverageCppU32)
 
 MINUNIT_ADD(MovingAverageCppDouble)
 {
-    movingAverageDutDouble.reset();
+    movingAverageDutDouble.reset(0);
     movingAverageDutDouble.add(1.5);
     minUnitCheck(movingAverageDutDouble.get() == 0.375);
     movingAverageDutDouble.add(2.5);
