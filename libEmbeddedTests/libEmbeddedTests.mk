@@ -15,7 +15,7 @@ TARGET = PC
 
 # project sources
 FILES += $(PROJECT)/src/main.cpp \
-$(PROJECT)/src/testArray.cpp \
+$(PROJECT)/src/test_array.cpp \
 $(PROJECT)/src/mock_datastreamchar.c \
 $(PROJECT)/src/test_queue_char.c \
 $(PROJECT)/src/test_queue_string.c \
