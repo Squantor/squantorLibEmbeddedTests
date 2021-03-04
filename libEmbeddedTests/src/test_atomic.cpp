@@ -22,8 +22,16 @@ testing the util::atomic method
 */
 MINUNIT_ADD(testAtomicUint16)
 {
-    util::atomic<uint16_t> Dut {0};
-    minUnitCheck(Dut != 0);
+    util::atomic<uint16_t> Dut {0u};
+    minUnitCheck(Dut.load() == 0u);
+    Dut = 1u;
+    minUnitCheck(Dut.load() == 1u);
     Dut = Dut + 1;
-    
+    minUnitCheck(Dut.load() == 2u);
+    Dut = Dut - 1;
+    minUnitCheck(Dut.load() == 1u);
+    Dut = 0xFF00;
+    Dut = Dut & 0x0FFF;
+    minUnitCheck(Dut.load() == 0x0F00);
+
 }
