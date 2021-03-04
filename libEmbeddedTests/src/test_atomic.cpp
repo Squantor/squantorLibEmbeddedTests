@@ -26,6 +26,10 @@ MINUNIT_ADD(testAtomicUint16)
     minUnitCheck(Dut.load() == 0u);
     Dut = 1u;
     minUnitCheck(Dut.load() == 1u);
+    Dut++;
+    minUnitCheck(Dut.load() == 2u);
+    Dut--;
+    minUnitCheck(Dut.load() == 1u);
     Dut = Dut + 1;
     minUnitCheck(Dut.load() == 2u);
     Dut = Dut - 1;
@@ -33,5 +37,23 @@ MINUNIT_ADD(testAtomicUint16)
     Dut = 0xFF00;
     Dut = Dut & 0x0FFF;
     minUnitCheck(Dut.load() == 0x0F00);
-
+    Dut = Dut | 0x05F5;
+    minUnitCheck(Dut.load() == 0x0FF5);
+    Dut = Dut ^ 0x05F0;
+    minUnitCheck(Dut.load() == 0x0A05);
+    uint16_t old = Dut.exchange(0x0012);
+    minUnitCheck(Dut.load() == 0x0012);
+    minUnitCheck(old == 0x0A05);
+    uint16_t expected = 0x0013;
+    minUnitCheck(Dut.compare_exchange_weak(expected, 0x0014) == false);
+    minUnitCheck(Dut.load() == 0x0012);
+    expected = 0x0012;
+    minUnitCheck(Dut.compare_exchange_weak(expected, 0x0014) == true);
+    minUnitCheck(Dut.load() == 0x0014);
+    expected = 0x0013;
+    minUnitCheck(Dut.compare_exchange_weak(expected, 0x0014) == false);
+    minUnitCheck(Dut.load() == 0x0014);
+    expected = 0x0014;
+    minUnitCheck(Dut.compare_exchange_weak(expected, 0x0012) == true);
+    minUnitCheck(Dut.load() == 0x0012);
 }
