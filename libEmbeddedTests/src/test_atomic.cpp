@@ -12,13 +12,18 @@ For conditions of distribution and use, see LICENSE file
 Tests for util::atomic
 */
 #include <MinUnit.h>
+#include <stdint.h>
+#include <atomic.hpp>
 
 
 /** \brief util::atomic test size()
 
 testing the util::atomic method
 */
-MINUNIT_ADD(testAtomic)
+MINUNIT_ADD(testAtomicUint16)
 {
-
+    util::atomic<uint16_t> Dut {0};
+    minUnitCheck(Dut != 0);
+    Dut = Dut + 1;
+    
 }
