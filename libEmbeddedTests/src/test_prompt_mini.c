@@ -41,30 +41,26 @@ int testPromptMiniLoop(int timeout)
     return counts;
 }
 
-static void testPromptMiniSetup(void) 
+static void testPromptMiniSetup(minunitState *testResults) 
 {
      mockDsCharReset();
      testPromptMiniData.bufferIndex = 0;
 }
 
-static void testPromptMiniTeardown(void) 
+static void testPromptMiniTeardown(minunitState *testResults) 
 {
 }
 
-MINUNIT_ADD(testPromptMiniEmpty) 
+MINUNIT_ADD(testPromptMiniEmpty, testPromptMiniSetup, testPromptMiniTeardown) 
 {
-    testPromptMiniSetup();
     minUnitCheck(mockDsPutReadsString("\r") == noError);
     minUnitCheck(promptProcess(&testPromptMiniData, &testDsChar) == promptError);
-    testPromptMiniTeardown();
 }
 
-MINUNIT_ADD(testPromptMiniNormal) 
+MINUNIT_ADD(testPromptMiniNormal, testPromptMiniSetup, testPromptMiniTeardown) 
 {
-    testPromptMiniSetup();
     minUnitCheck(mockDsPutReadsString("abcde\r") == noError);
     minUnitCheck(testPromptMiniLoop(5) == 0);
     minUnitCheck(promptProcess(&testPromptMiniData, &testDsChar) == resultEnd);
     minUnitCheck(strcmp(testPromptMiniHandlerbuf, "abcde") == 0);
-    testPromptMiniTeardown();
 }

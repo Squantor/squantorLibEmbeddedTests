@@ -18,7 +18,7 @@ util::MovingAverage<uint16_t, 5> movingAverageDutU16(0);
 util::MovingAverage<uint32_t, 3> movingAverageDutU32(0);
 util::MovingAverage<double, 4> movingAverageDutDouble(0);
 
-MINUNIT_ADD(movingAverageCppReset)
+MINUNIT_ADD(movingAverageCppReset, NULL, NULL)
 {
     movingAverageDutU16.reset(0);
     minUnitCheck(movingAverageDutU16.get() == 0);
@@ -32,7 +32,7 @@ MINUNIT_ADD(movingAverageCppReset)
     minUnitCheck(movingAverageDutU16.get() == 0);
 }
 
-MINUNIT_ADD(MovingAverageCppAverage)
+MINUNIT_ADD(MovingAverageCppAverage, NULL, NULL)
 {
     movingAverageDutU16.reset(0);
     movingAverageDutU16.add(1);
@@ -51,7 +51,7 @@ MINUNIT_ADD(MovingAverageCppAverage)
     minUnitCheck(movingAverageDutU16.get() == 5);
 }
 
-MINUNIT_ADD(MovingAverageCppU32)
+MINUNIT_ADD(MovingAverageCppU32, NULL, NULL)
 {
     movingAverageDutU32.reset(0);
     movingAverageDutU32.add(5);
@@ -62,7 +62,7 @@ MINUNIT_ADD(MovingAverageCppU32)
     minUnitCheck(movingAverageDutU32.get() == 17);
 }
 
-MINUNIT_ADD(MovingAverageCppDouble)
+MINUNIT_ADD(MovingAverageCppDouble, NULL, NULL)
 {
     movingAverageDutDouble.reset(0);
     movingAverageDutDouble.add(1.5);

@@ -16,29 +16,26 @@ queueChar_t testQueueChar = {
     testQueueCharBuf,
     };
 
-static void testQueueSetup(void) 
+static void testQueueSetup(minunitState *testResults) 
 {
     queueInit(&testQueueChar);
 }
 
-static void testQueueTeardown(void) 
+static void testQueueTeardown(minunitState *testResults) 
 {
 
 }
 
-MINUNIT_ADD(testQueueEmpty) 
+MINUNIT_ADD(testQueueEmpty, testQueueSetup, testQueueTeardown) 
 {
     char c;
-    testQueueSetup();
     minUnitCheck(queueDequeue(&testQueueChar, &c) == queueEmpty);
-    testQueueTeardown();
 }
 
-MINUNIT_ADD(testQueueEnqDeq) 
+MINUNIT_ADD(testQueueEnqDeq, testQueueSetup, testQueueTeardown) 
 {
     char in = 'a';
     char out = 'q';
-    testQueueSetup();
     for(int i = 0; i < TESTQUEUECHARSIZE-1; i++)
     {
         minUnitCheck(queueEnqueue(&testQueueChar, in + i) == noError);
@@ -63,5 +60,4 @@ MINUNIT_ADD(testQueueEnqDeq)
     minUnitCheck(queueState(&testQueueChar) == queueEmpty); 
     minUnitCheck(queueDequeue(&testQueueChar, &out) == queueEmpty);
     minUnitCheck(out == in);
-    testQueueTeardown();
 }

@@ -6,19 +6,17 @@
  */
 #include <MinUnit.h>
 
-static void testDummySetup(void) 
+static void testDummySetup(minunitState *testResults) 
 {
     
 }
 
-static void testDummyTeardown(void) 
+static void testDummyTeardown(minunitState *testResults) 
 {
 
 }
 
-MINUNIT_ADD(testDummyNormal) 
+MINUNIT_ADD(testDummyNormal, testDummySetup, testDummyTeardown) 
 {
-    testDummySetup();
     minUnitCheck(1 == 1);
-    testDummyTeardown();
 }

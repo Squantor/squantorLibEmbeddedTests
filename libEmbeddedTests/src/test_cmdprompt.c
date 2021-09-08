@@ -38,7 +38,7 @@ int testCmdPromptLoop(int timeout)
     return counts;
 }
 
-static void testCmdPromptSetup(void) 
+static void testCmdPromptSetup(minunitState *testResults) 
 {
     mockDsCharReset();
     testCmdPromptStringQueue.head = 0;
@@ -49,34 +49,29 @@ static void testCmdPromptSetup(void)
     cmdlinePromptInit(&testCmdPromptStringQueue);
 }
 
-static void testCmdPromptTeardown(void) 
+static void testCmdPromptTeardown(minunitState *testResults) 
 {
 
 }
 
-MINUNIT_ADD(testCmdPromptEmpty) 
+MINUNIT_ADD(testCmdPromptEmpty, testCmdPromptSetup, testCmdPromptTeardown) 
 {
-    testCmdPromptSetup();
     minUnitCheck(testCmdPromptLoop(10) == 9);
-    testCmdPromptTeardown();
 }
 
 // check if prompt echo works
-MINUNIT_ADD(testCmdPromptCmdlineEcho) 
+MINUNIT_ADD(testCmdPromptCmdlineEcho, testCmdPromptSetup, testCmdPromptTeardown) 
 {
-    testCmdPromptSetup();
     char testcmd[] = "foo";
     char testoutput[3] = "baz";
     mockDsPutReadsString(testcmd);
     minUnitCheck(testCmdPromptLoop(10) == 6);
     minUnitCheck(mockDsGetWrites(testoutput, sizeof(testoutput)) == noError);
     minUnitCheck(memcmp(testcmd, testoutput, 3) == 0);
-    testCmdPromptTeardown();
 }
 // check line editing
-MINUNIT_ADD(testCmdPromptCmdLineEdit)
+MINUNIT_ADD(testCmdPromptCmdLineEdit, testCmdPromptSetup, testCmdPromptTeardown)
 {
-    testCmdPromptSetup();
     char testcmd[] = "fa\booo\b";
     char testcmdexpect[11] = "fa\b \booo\b \b";
     char testcmdout[11];
@@ -85,13 +80,11 @@ MINUNIT_ADD(testCmdPromptCmdLineEdit)
     minUnitCheck(mockDsGetWrites(testcmdout, sizeof(testcmdout)) == noError);
     minUnitCheck(mockDsGetWriteStatus() == queueEmpty);
     minUnitCheck(memcmp(testcmdout, testcmdexpect, 11) == 0);
-    testCmdPromptTeardown();
 }
 
 // check what happens when we just press enter
-MINUNIT_ADD(testCmdPromptCmdlineInputEmpty) 
+MINUNIT_ADD(testCmdPromptCmdlineInputEmpty, testCmdPromptSetup, testCmdPromptTeardown) 
 {
-    testCmdPromptSetup();
     char testcmd[] = "\r";
     char testcmdoutput[] = "\r";
     char testcmdout[11];
@@ -100,13 +93,11 @@ MINUNIT_ADD(testCmdPromptCmdlineInputEmpty)
     minUnitCheck(mockDsGetWrites(testcmdout, 1) == noError);
     minUnitCheck(mockDsGetWriteStatus() == queueEmpty);
     minUnitCheck(memcmp(testcmdout, testcmdoutput, 1) == 0);
-    testCmdPromptTeardown();
 }
 
 // check if the command interpreter gets called
-MINUNIT_ADD(testCmdPromptCmdlineInput) 
+MINUNIT_ADD(testCmdPromptCmdlineInput, testCmdPromptSetup, testCmdPromptTeardown) 
 {
-    testCmdPromptSetup();
     char testcmd[] = "foo\r";
     char testcmdcall[] = "foo";
     char testcmdoutput[] = "foo\r";
@@ -118,24 +109,20 @@ MINUNIT_ADD(testCmdPromptCmdlineInput)
     minUnitCheck(memcmp(testcmdout, testcmdoutput, 4) == 0); 
     minUnitCheck(testCmdlineParseCallCnt == 1);
     minUnitCheck(strncmp(testcmdcall, testCmdlineParseString, sizeof(testcmdcall)) == 0);
-    testCmdPromptTeardown();
 }
 
 // input unhandled escape, should be empty
-MINUNIT_ADD(testCmdPromptCmdlineBadEsc)
+MINUNIT_ADD(testCmdPromptCmdlineBadEsc, testCmdPromptSetup, testCmdPromptTeardown)
 {
-    testCmdPromptSetup();
     char testcmd[] = "\e_";
     mockDsPutReadsString(testcmd);
     minUnitCheck(testCmdPromptLoop(10) == 7);
     minUnitCheck(mockDsGetWriteStatus() == queueEmpty);
-    testCmdPromptTeardown();
 }
 
 // check if the command interpreter gets edited line
-MINUNIT_ADD(testCmdPromptCmdlineEditInput) 
+MINUNIT_ADD(testCmdPromptCmdlineEditInput, testCmdPromptSetup, testCmdPromptTeardown) 
 {
-    testCmdPromptSetup();
     char testcmd[] = "fa\booo\b\r";
     char testcmdcall[] = "foo";
     char testcmdoutput[] = "fa\b \booo\b \b\r";
@@ -147,13 +134,11 @@ MINUNIT_ADD(testCmdPromptCmdlineEditInput)
     minUnitCheck(memcmp(testcmdout, testcmdoutput, 12) == 0); 
     minUnitCheck(testCmdlineParseCallCnt == 1);
     minUnitCheck(strncmp(testcmdcall, testCmdlineParseString, sizeof(testcmdcall)) == 0);
-    testCmdPromptTeardown();
 }
 
 // check if we can get previous command
-MINUNIT_ADD(testCmdPromptRetrieve) 
+MINUNIT_ADD(testCmdPromptRetrieve, testCmdPromptSetup, testCmdPromptTeardown) 
 {
-    testCmdPromptSetup();
     char testcmd[] = "foo\r\e[A";
     char testcmdcall[] = "foo";
     char testcmdoutput[] = "foo\rfoo";
@@ -165,13 +150,11 @@ MINUNIT_ADD(testCmdPromptRetrieve)
     minUnitCheck(memcmp(testcmdout, testcmdoutput, 4) == 0); 
     minUnitCheck(testCmdlineParseCallCnt == 1);
     minUnitCheck(strncmp(testcmdcall, testCmdlineParseString, sizeof(testcmdcall)) == 0);
-    testCmdPromptTeardown();
 }
 
 // check if we can go up and down through history
-MINUNIT_ADD(testCmdPromptRetrieveForBack) 
+MINUNIT_ADD(testCmdPromptRetrieveForBack, testCmdPromptSetup, testCmdPromptTeardown) 
 {
-    testCmdPromptSetup();
     char testcmd[] = "bazz\r";
     char testcmdBackspace[] = "\b \b\b \b\b \b\b \bbazz";
     char testUp[] = "\e[A";
@@ -227,5 +210,4 @@ MINUNIT_ADD(testCmdPromptRetrieveForBack)
     mockDsPutReadsString(testDown);
     minUnitCheck(testCmdPromptLoop(3) == 0);
     minUnitCheck(mockDsGetWriteStatus() == queueEmpty);
-    testCmdPromptTeardown();
 }

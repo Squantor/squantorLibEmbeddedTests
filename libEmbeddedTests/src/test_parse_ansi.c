@@ -7,57 +7,47 @@
 #include <MinUnit.h>
 #include <parse_ansi.h>
 
-void testParseAnsiSetup(void) 
+void testParseAnsiSetup(minunitState *testResults) 
 {
 }
 
-void testParseAnsiTeardown(void) 
+void testParseAnsiTeardown(minunitState *testResults) 
 {
 }
 
-MINUNIT_ADD(testParseAnsiEmpty) 
+MINUNIT_ADD(testParseAnsiEmpty, testParseAnsiSetup, testParseAnsiTeardown) 
 {
-    testParseAnsiSetup();
     minUnitCheck(ansiParse('a') == ansiError);
-    testParseAnsiTeardown();
 }
 
-MINUNIT_ADD(testParseAnsiUnknownEscapes)
+MINUNIT_ADD(testParseAnsiUnknownEscapes, testParseAnsiSetup, testParseAnsiTeardown)
 {
-    testParseAnsiSetup();
     minUnitCheck(ansiParse('\e') == ansiEntered);
     minUnitCheck(ansiParse('_') == ansiError);
     minUnitCheck(ansiParse('\e') == ansiEntered);
     minUnitCheck(ansiParse('[') == ansiBrackOpen);
     minUnitCheck(ansiParse('_') == ansiError);    
-    testParseAnsiTeardown();
 }
 
-MINUNIT_ADD(testParseAnsiCursorUp)
+MINUNIT_ADD(testParseAnsiCursorUp, testParseAnsiSetup, testParseAnsiTeardown)
 {
-    testParseAnsiSetup();
     minUnitCheck(ansiParse('\e') == ansiEntered);
     minUnitCheck(ansiParse('[') == ansiBrackOpen);
     minUnitCheck(ansiParse('A') == ansiCursorUp);
-    testParseAnsiTeardown();
 }
 
-MINUNIT_ADD(testParseAnsiCursorForward)
+MINUNIT_ADD(testParseAnsiCursorForward, testParseAnsiSetup, testParseAnsiTeardown)
 {
-    testParseAnsiSetup();
     minUnitCheck(ansiParse('\e') == ansiEntered);
     minUnitCheck(ansiParse('[') == ansiBrackOpen);
     minUnitCheck(ansiParse('C') == ansiCursorForward);
-    testParseAnsiTeardown();
 }
 
-MINUNIT_ADD(testParseAnsiInvalidValidInvalid)
+MINUNIT_ADD(testParseAnsiInvalidValidInvalid, testParseAnsiSetup, testParseAnsiTeardown)
 {
-    testParseAnsiSetup();
     minUnitCheck(ansiParse('a') == ansiError);
     minUnitCheck(ansiParse('\e') == ansiEntered);
     minUnitCheck(ansiParse('[') == ansiBrackOpen);
     minUnitCheck(ansiParse('C') == ansiCursorForward);
     minUnitCheck(ansiParse('a') == ansiError);
-    testParseAnsiTeardown();
 }

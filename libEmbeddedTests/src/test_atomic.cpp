@@ -17,7 +17,7 @@ Tests for util::atomic
 
 
 /** \brief util::atomic test uint16_t atomics */
-MINUNIT_ADD(testAtomicUint16)
+MINUNIT_ADD(testAtomicUint16, NULL, NULL)
 {
     util::atomic<uint16_t> Dut {0u};
     minUnitCheck(Dut.load() == 0u);
@@ -56,7 +56,7 @@ MINUNIT_ADD(testAtomicUint16)
 }
 
 /** \brief util::atomic test int atomics */
-MINUNIT_ADD(testAtomicInt)
+MINUNIT_ADD(testAtomicInt, NULL, NULL)
 {
     util::atomic<int> Dut {0};
     minUnitCheck(Dut.load() == 0);
@@ -82,7 +82,7 @@ MINUNIT_ADD(testAtomicInt)
 }
 
 /** \brief util::atomic test uint8_t atomics */
-MINUNIT_ADD(testAtomicUint8)
+MINUNIT_ADD(testAtomicUint8, NULL, NULL)
 {
     util::atomic<uint8_t> Dut {0u};
     minUnitCheck(Dut.load() == 0u);

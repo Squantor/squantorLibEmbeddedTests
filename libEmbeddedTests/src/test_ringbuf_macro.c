@@ -26,7 +26,7 @@ void ringbufMacroTeardown(void)
 
 }
 
-MINUNIT_ADD(ringbufEmpty)
+MINUNIT_ADD(ringbufEmpty, NULL, NULL)
 {
     ringbufMacroSetup();
     minUnitCheck(testEmpty() == true);
@@ -34,7 +34,7 @@ MINUNIT_ADD(ringbufEmpty)
     ringbufMacroTeardown();
 }
 
-MINUNIT_ADD(ringbufPushBack)
+MINUNIT_ADD(ringbufPushBack, NULL, NULL)
 {
     int number = 42;
     ringbufMacroSetup();
@@ -44,7 +44,7 @@ MINUNIT_ADD(ringbufPushBack)
     ringbufMacroTeardown();
 }
 
-MINUNIT_ADD(ringbufPushBackFull)
+MINUNIT_ADD(ringbufPushBackFull, NULL, NULL)
 {
     int number = 42;
     ringbufMacroSetup();
@@ -58,7 +58,7 @@ MINUNIT_ADD(ringbufPushBackFull)
     ringbufMacroTeardown();
 }
 
-MINUNIT_ADD(ringbufPushFront)
+MINUNIT_ADD(ringbufPushFront, NULL, NULL)
 {
     int number = 42;
     ringbufMacroSetup();
@@ -68,7 +68,7 @@ MINUNIT_ADD(ringbufPushFront)
     ringbufMacroTeardown();
 }
 
-MINUNIT_ADD(ringbufPushFrontFull)
+MINUNIT_ADD(ringbufPushFrontFull, NULL, NULL)
 {
     int number = 42;
     ringbufMacroSetup();
@@ -82,7 +82,7 @@ MINUNIT_ADD(ringbufPushFrontFull)
     ringbufMacroTeardown();
 }
 
-MINUNIT_ADD(ringbufPopBack)
+MINUNIT_ADD(ringbufPopBack, NULL, NULL)
 {
     int number = 42;
     int output = 0;
@@ -115,7 +115,7 @@ MINUNIT_ADD(ringbufPopBack)
     ringbufMacroTeardown();
 }
 
-MINUNIT_ADD(ringbufPopFront)
+MINUNIT_ADD(ringbufPopFront, NULL, NULL)
 {
     int number = 42;
     int output = 0;

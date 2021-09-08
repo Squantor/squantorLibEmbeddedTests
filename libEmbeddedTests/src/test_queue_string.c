@@ -25,7 +25,7 @@ void testTeardownQueueString(void)
 
 }
 
-MINUNIT_ADD(testEnqueue) 
+MINUNIT_ADD(testEnqueue, NULL, NULL) 
 {
     testSetupQueueString();
     minUnitCheck(queueStringEnqueue(NULL, NULL) == invalidArg);
@@ -52,7 +52,7 @@ MINUNIT_ADD(testEnqueue)
     testTeardownQueueString();
 }
 
-MINUNIT_ADD(testDequeue) 
+MINUNIT_ADD(testDequeue, NULL, NULL) 
 {
     testSetupQueueString();
     minUnitCheck(queueStringDequeue(NULL, NULL) == invalidArg);
@@ -61,7 +61,7 @@ MINUNIT_ADD(testDequeue)
 }
 
 
-MINUNIT_ADD(testEnqueueDequeue) 
+MINUNIT_ADD(testEnqueueDequeue, NULL, NULL) 
 {
     testSetupQueueString();
     char stringInput[] = "Hello World\n";
@@ -72,7 +72,7 @@ MINUNIT_ADD(testEnqueueDequeue)
     testTeardownQueueString();
 }
 
-MINUNIT_ADD(testEnqueueDequeueOverwrite) 
+MINUNIT_ADD(testEnqueueDequeueOverwrite, NULL, NULL) 
 {
     testSetupQueueString();
     char stringDummy[16] = "Dummy";
@@ -92,7 +92,7 @@ MINUNIT_ADD(testEnqueueDequeueOverwrite)
     testTeardownQueueString();
 }
 
-MINUNIT_ADD(testGetPrev) 
+MINUNIT_ADD(testGetPrev, NULL, NULL) 
 {
     testSetupQueueString();
     uint16_t idx;
@@ -114,7 +114,7 @@ MINUNIT_ADD(testGetPrev)
     testTeardownQueueString();
 }
 
-MINUNIT_ADD(testGetNext) 
+MINUNIT_ADD(testGetNext, NULL, NULL) 
 {
     testSetupQueueString();
     uint16_t idx;

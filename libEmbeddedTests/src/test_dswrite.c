@@ -8,21 +8,19 @@
 #include <datastream.h>
 #include <mock_datastreamchar.h>
 
-static void testDsWriteSetup(void) 
+static void testDsWriteSetup(minunitState *testResults) 
 {
     mockDsCharReset();
 }
 
-static void testDsWriteTeardown(void) 
+static void testDsWriteTeardown(minunitState *testResults) 
 {
 
 }
 
-MINUNIT_ADD(testDsWriteCharNormal) 
+MINUNIT_ADD(testDsWriteCharNormal, testDsWriteSetup, testDsWriteTeardown) 
 {
-    testDsWriteSetup();
     minUnitCheck(dsWriteElement(&testDsChar, 'a') == noError);
     minUnitCheck(dsWriteElement(&testDsChar, 'b') == noError);
     // TODO check amount of elements added maybe?
-    testDsWriteTeardown();
 }

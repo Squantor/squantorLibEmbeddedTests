@@ -38,46 +38,41 @@ commandEntry_t testlist[] = {
     {NULL, NULL},
     };
 
-static void testCommandMiniSetup(void) 
+static void testCommandMiniSetup(minunitState *testResults) 
 {
     handleCmd1Count = 0;
     handleCmd2Count = 0;
     memset(handleCmd1Arg, 0, sizeof(handleCmd1Arg));
     memset(handleCmd2Arg, 0, sizeof(handleCmd2Arg));
+    testResults = testResults;
 }
 
-static void testCommandMiniTeardown(void) 
+static void testCommandMiniTeardown(minunitState *testResults) 
 {
-    
+    testResults = testResults;
 }
 
-MINUNIT_ADD(testCommandMiniNormal)
+MINUNIT_ADD(testCommandMiniNormal, testCommandMiniSetup, testCommandMiniTeardown)
 {
-    testCommandMiniSetup();
     minUnitCheck(commandInterpret(testlist, "abc") == noError);
     minUnitCheck(handleCmd1Count == 1);
     minUnitCheck(commandInterpret(testlist, "def") == resultEnd);
     minUnitCheck(handleCmd2Count == 1);
-    testCommandMiniTeardown();
 }
 
-MINUNIT_ADD(testCommandMiniNormalArg)
+MINUNIT_ADD(testCommandMiniNormalArg, testCommandMiniSetup, testCommandMiniTeardown)
 {
-    testCommandMiniSetup();
     minUnitCheck(commandInterpret(testlist, "abc 123") == noError);
     minUnitCheck(handleCmd1Count == 1); 
     minUnitCheck(strncmp(handleCmd1Arg, "123", sizeof(handleCmd1Arg)) == 0);
     minUnitCheck(commandInterpret(testlist, "def 0x1234") == resultEnd);
     minUnitCheck(handleCmd2Count == 1); 
     minUnitCheck(strncmp(handleCmd2Arg, "0x1234", sizeof(handleCmd2Arg)) == 0);
-    testCommandMiniTeardown();
 }
 
-MINUNIT_ADD(testCommandMiniFail) 
+MINUNIT_ADD(testCommandMiniFail, testCommandMiniSetup, testCommandMiniTeardown) 
 {
-    testCommandMiniSetup();
     minUnitCheck(commandInterpret(testlist, "ghi") == commandNotFound);
     minUnitCheck(handleCmd1Count == 0);
     minUnitCheck(handleCmd2Count == 0);
-    testCommandMiniTeardown();
 }

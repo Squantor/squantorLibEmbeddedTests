@@ -15,14 +15,14 @@
 
 util::RingBuffer<uint16_t, 10> RingBufferDutU16;
 
-MINUNIT_ADD(RingBufferCppEmpty)
+MINUNIT_ADD(RingBufferCppEmpty, NULL, NULL)
 {
     RingBufferDutU16.reset();
     minUnitCheck(RingBufferDutU16.empty() == true);
     minUnitCheck(RingBufferDutU16.full() == false);
 }
 
-MINUNIT_ADD(RingBufferCppPushBack)
+MINUNIT_ADD(RingBufferCppPushBack, NULL, NULL)
 {
     uint16_t number = 42;
     RingBufferDutU16.reset();
@@ -31,7 +31,7 @@ MINUNIT_ADD(RingBufferCppPushBack)
     minUnitCheck(RingBufferDutU16.empty() == false);
 }
 
-MINUNIT_ADD(RingBufferCppPushBackFull)
+MINUNIT_ADD(RingBufferCppPushBackFull, NULL, NULL)
 {
     uint16_t number = 42;
     RingBufferDutU16.reset();
@@ -44,7 +44,7 @@ MINUNIT_ADD(RingBufferCppPushBackFull)
     minUnitCheck(RingBufferDutU16.full() == true);
 }
 
-MINUNIT_ADD(RingBufferCppPushFront)
+MINUNIT_ADD(RingBufferCppPushFront, NULL, NULL)
 {
     uint16_t number = 42;
     RingBufferDutU16.reset();
@@ -53,7 +53,7 @@ MINUNIT_ADD(RingBufferCppPushFront)
     minUnitCheck(RingBufferDutU16.empty() == false);
 }
 
-MINUNIT_ADD(RingBufferCppPushFrontFull)
+MINUNIT_ADD(RingBufferCppPushFrontFull, NULL, NULL)
 {
     uint16_t number = 42;
     RingBufferDutU16.reset();
@@ -66,7 +66,7 @@ MINUNIT_ADD(RingBufferCppPushFrontFull)
     minUnitCheck(RingBufferDutU16.full() == true);
 }
 
-MINUNIT_ADD(RingBufferCppPopBack)
+MINUNIT_ADD(RingBufferCppPopBack, NULL, NULL)
 {
     uint16_t number = 42;
     uint16_t output = 0;
@@ -98,7 +98,7 @@ MINUNIT_ADD(RingBufferCppPopBack)
     minUnitCheck(RingBufferDutU16.popBack(output) == false);
 }
 
-MINUNIT_ADD(RingBufferCppPopFront)
+MINUNIT_ADD(RingBufferCppPopFront, NULL, NULL)
 {
     uint16_t number = 42;
     uint16_t output = 0;

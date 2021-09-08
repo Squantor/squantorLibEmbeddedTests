@@ -9,19 +9,18 @@
 #include <datastream.h>
 #include <mock_datastreamchar.h>
 
-static void testdsPutsSetup(void) 
+static void testdsPutsSetup(minunitState *testResults) 
 {
     mockDsCharReset();
 }
 
-static void testdsPutsTeardown(void) 
+static void testdsPutsTeardown(minunitState *testResults) 
 {
 
 }
 
-MINUNIT_ADD(testdsPutsNormal) 
+MINUNIT_ADD(testdsPutsNormal, testdsPutsSetup, testdsPutsTeardown) 
 {
-    testdsPutsSetup();
     char testInput[] = "abc";
     char testOutput[] = "abc";
     char testBuffer[12];
@@ -29,5 +28,4 @@ MINUNIT_ADD(testdsPutsNormal)
     minUnitCheck(mockDsGetWrites(testBuffer, 3) == noError);
     minUnitCheck(mockDsGetWriteStatus() == queueEmpty);
     minUnitCheck(memcmp(testOutput, testBuffer, 3) == 0);
-    testdsPutsTeardown();
 }

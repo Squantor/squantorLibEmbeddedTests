@@ -10,19 +10,18 @@
 
 char testabc[] = "abc";
 
-static void testDsReadSetup(void) 
+static void testDsReadSetup(minunitState *testResults) 
 {
     mockDsCharReset();
 }
 
-static void testDsReadTeardown(void) 
+static void testDsReadTeardown(minunitState *testResults) 
 {
 
 }
 
-MINUNIT_ADD(testDsReadCharNormal) 
+MINUNIT_ADD(testDsReadCharNormal, testDsReadSetup, testDsReadTeardown) 
 {
-    testDsReadSetup();
     char c;
     minUnitCheck(mockDsPutReads(testabc, sizeof(testabc)) == noError);
     minUnitCheck(dsReadElement(&testDsChar, &c) == noError);
@@ -34,5 +33,4 @@ MINUNIT_ADD(testDsReadCharNormal)
     minUnitCheck(dsReadElement(&testDsChar, &c) == noError);
     minUnitCheck(c == '\0');
     minUnitCheck(dsReadElement(&testDsChar, &c) == streamEmtpy);
-    testDsReadTeardown();
 }

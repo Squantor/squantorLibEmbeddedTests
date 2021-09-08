@@ -35,32 +35,29 @@ MOVING_AVERAGE_VARS(testDouble, TESTDOUBLE_TYPE, TESTDOUBLE_SIZE);
 MOVING_AVERAGE_PROTO(testDouble, TESTDOUBLE_TYPE);
 MOVING_AVERAGE_FUNCTIONS(testDouble, TESTDOUBLE_TYPE, TESTDOUBLE_SIZE);
 
-void movingAverageTestSetup(void)
+void movingAverageTestSetup(minunitState *testResults)
 {
     testU16Reset();
     testU32Reset();
     testDoubleReset();
 }
 
-void movingAverageTestTeardown(void)
+void movingAverageTestTeardown(minunitState *testResults)
 {
 
 }
 
-MINUNIT_ADD(movingAverageUint16Reset)
+MINUNIT_ADD(movingAverageUint16Reset, movingAverageTestSetup, movingAverageTestTeardown)
 {
-    movingAverageTestSetup();
     minUnitCheck(testU16Get() == 0);
     testU16Add(10);
     minUnitCheck(testU16Get() != 0);
     testU16Reset();
     minUnitCheck(testU16Get() == 0);
-    movingAverageTestTeardown();
 }
 
-MINUNIT_ADD(movingAverageUint16Get)
+MINUNIT_ADD(movingAverageUint16Get, movingAverageTestSetup, movingAverageTestTeardown)
 {
-    movingAverageTestSetup();
     minUnitCheck(testU16Get() == 0);
     testU16Add(1);
     testU16Add(2);
@@ -71,12 +68,10 @@ MINUNIT_ADD(movingAverageUint16Get)
     minUnitCheck(testU16Get() == 3);
     testU16Add(6);
     minUnitCheck(testU16Get() == 4);
-    movingAverageTestTeardown();
 }
 
-MINUNIT_ADD(movingAverageUint32Get)
+MINUNIT_ADD(movingAverageUint32Get, movingAverageTestSetup, movingAverageTestTeardown)
 {
-    movingAverageTestSetup();
     minUnitCheck(testU32Get() == 0);
     testU32Add(1);
     testU32Add(2);
@@ -87,12 +82,10 @@ MINUNIT_ADD(movingAverageUint32Get)
     minUnitCheck(testU32Get() == 4);
     testU32Add(6);
     minUnitCheck(testU32Get() == 5);
-    movingAverageTestTeardown();
 }
 
-MINUNIT_ADD(movingAverageDoubleGet)
+MINUNIT_ADD(movingAverageDoubleGet, movingAverageTestSetup, movingAverageTestTeardown)
 {
-    movingAverageTestSetup();
     minUnitCheck(testDoubleGet() == 0);
     testDoubleAdd(1.1);
     testDoubleAdd(2.2);
@@ -103,5 +96,4 @@ MINUNIT_ADD(movingAverageDoubleGet)
     minUnitCheck(testDoubleGet() == 3.2);
     testDoubleAdd(6);
     minUnitCheck(testDoubleGet() == 4.18);
-    movingAverageTestTeardown();
 }
