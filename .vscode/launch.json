@@ -4,7 +4,7 @@
         "name": "(gdb) Launch",
         "type": "cppdbg",
         "request": "launch",
-        "program": "${workspaceFolder}/bin/libEmbeddedTests/debug/libEmbeddedTests.elf",
+        "program": "${workspaceFolder}/bin/squantorLibEmbeddedTests/debug/squantorLibEmbeddedTests.elf",
         "args": [],
         //"stopAtEntry": true,
         "cwd": "${workspaceFolder}",
