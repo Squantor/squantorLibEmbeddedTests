@@ -2,15 +2,19 @@
 This project contains the unittests for the [libEmbedded](https://github.com/Squantor/libEmbedded) library.
 ## Checking out
 use ```git clone --recurse-submodules https://github.com/Squantor/libEmbeddedTests.git``` to clone the repository and its submodules.
-## Compiling
-This project uses Gnu Make to build. Use ```make``` to build the project with the default configuration which is Debug mode. To explicitly build a configuration use ```make CONFIG=configuration```, valid confugrations are ```debug``` and ```release```.
-
-To clean all the build output files use ```make clean```.
-
+## Building
+To build the test suite execute:
+```
+make PROJECT=libEmbeddedTests
+```
+Building can be done with various configurations that set up flags and other settings, this configuration is set with the ```CONFIG``` variable. Valid configurations are ```release``` and ```debug``` where the ```debug``` configuration is default.
+The ```release``` configuration has optimizations enabled (usually for size) and minimal included debugging information. The ```debug``` configuration has NO optimization and full debugging information.
+For cleaning execute the following command:
+```
+make clean
+```
 To build the documentation use ```make doc```, this depends on doxygen.
-
-To build everything and delete the results run ```./build.sh```, it is used as a quick check if everything works.
 ### Depedencies
 This project has a few dependencies:
-* [libEmbedded](https://github.com/Squantor/libEmbedded) library, as it tests this
-* [MinUnit](https://github.com/Squantor/MinUnit) minimal unittest library, used in the tests themselves.
+* [squantorLibEmbedded](https://github.com/Squantor/squantorLibEmbedded) library, as it tests this
+* [squantorMinUnit](https://github.com/Squantor/squantorMinUnit) minimal unittest library, used in the tests themselves.
