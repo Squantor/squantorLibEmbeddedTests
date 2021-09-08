@@ -8,7 +8,7 @@
 
 # additional library includes
 include squantorMinUnit/squantorMinUnit.mk
-include libEmbedded/libEmbedded.mk
+include squantorLibEmbedded/squantorLibEmbedded.mk
 
 # project settings
 TARGET = PC
