@@ -4,11 +4,12 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/libEmbeddedTests/inc",
-                "${workspaceFolder}/libEmbedded/inc",
+                "${workspaceFolder}/squantorLibEmbedded/inc",
                 "${workspaceFolder}/squantorMinUnit/inc"
             ],
             "defines": [
-                "DEBUG"
+                "DEBUG",
+                "MINUNIT_MAX_TESTS=1000"
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": false,
