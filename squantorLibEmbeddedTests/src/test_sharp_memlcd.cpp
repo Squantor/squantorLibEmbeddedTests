@@ -8,7 +8,8 @@
 #include <sharp_memlcd.hpp>
 
 
-util::sharpMemLcd<32,32> testDevice;
+using lcdTestConfig = util::lcdConfig<32,32>;
+util::sharpMemLcd<lcdTestConfig> testDevice;
 
 static void testSharpMemLcdSetup(minunitState *testResults) 
 {
