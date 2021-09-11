@@ -43,3 +43,12 @@ MINUNIT_ADD(testSharpMemLcdPutPixel, testSharpMemLcdSetup, testSharpMemLcdTeardo
     testDevice.putPixel(18,1,0);
     minUnitCheck(testDevice.frameBuffer[6] == 0x0001);
 }
+
+MINUNIT_ADD(testSharpMemLcdFlipVcom, testSharpMemLcdSetup, testSharpMemLcdTeardown)
+{
+    minUnitCheck(testDevice.frameBuffer[0] == 0x8001);
+    testDevice.flipVcom();
+    minUnitCheck(testDevice.frameBuffer[0] == 0x8003);
+    testDevice.flipVcom();
+    minUnitCheck(testDevice.frameBuffer[0] == 0x8001);
+}
