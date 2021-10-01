@@ -8,8 +8,13 @@
 #include <sharp_memlcd.hpp>
 
 
+void stubTransfer(uint16_t * begin, uint16_t * end)
+{
+
+}
+
 using lcdTestConfig = util::lcdConfig<32,32, 8>;
-util::sharpMemLcd<lcdTestConfig> testDevice;
+util::sharpMemLcd<lcdTestConfig, stubTransfer> testDevice;
 
 static void testSharpMemLcdSetup(minunitState *testResults) 
 {
