@@ -6,11 +6,28 @@
  */
 #include <MinUnit.h>
 #include <sharp_memlcd.hpp>
+#include <array.hpp>
 
-
-void stubTransfer(uint16_t * begin, uint16_t * end)
+typedef struct 
 {
+    int transferCount;
+    int transferLength;
+    uint16_t transfer[32];
+} stubTransferType;
 
+stubTransferType transfers;
+
+static void stubTransferReset(minunitState *testResults) 
+{
+    transfers.transferCount = 0;
+    transfers.transferLength = 0;
+    testResults = testResults; /*!< supress warning */
+}
+
+static void stubTransfer(uint16_t * begin, uint16_t * end)
+{
+    transfers.transferCount++;
+    transfers.transferLength = end - begin;
 }
 
 using lcdTestConfig = util::lcdConfig<32,32, 8>;
@@ -54,4 +71,14 @@ MINUNIT_ADD(testSharpMemLcdFlipVcom, testSharpMemLcdSetup, testSharpMemLcdTeardo
     minUnitCheck(testDevice.frameBuffer[0] == 0x0103);
     testDevice.flipVcom();
     minUnitCheck(testDevice.frameBuffer[0] == 0x0101);
+}
+
+MINUNIT_ADD(testStubTransfer, stubTransferReset, NULL)
+{
+    util::array<uint16_t, 4> testArray;
+    minUnitCheck(transfers.transferCount == 0);
+    minUnitCheck(transfers.transferLength == 0);
+    stubTransfer(testArray.begin(), testArray.end());
+    minUnitCheck(transfers.transferCount == 1);
+    minUnitCheck(transfers.transferLength == 4);
 }
