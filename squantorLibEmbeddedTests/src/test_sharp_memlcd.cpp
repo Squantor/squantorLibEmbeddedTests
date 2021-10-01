@@ -8,11 +8,13 @@
 #include <sharp_memlcd.hpp>
 #include <array.hpp>
 
+constexpr int maxTransferLength = 32;
+
 typedef struct 
 {
     int transferCount;
     int transferLength;
-    uint16_t transfer[32];
+    uint16_t transfer[maxTransferLength];
 } stubTransferType;
 
 stubTransferType transfers;
@@ -28,6 +30,13 @@ static void stubTransfer(uint16_t * begin, uint16_t * end)
 {
     transfers.transferCount++;
     transfers.transferLength = end - begin;
+    uint16_t *p = begin;
+    int i = 0;
+    while(p < end || i < maxTransferLength)
+    {
+        transfers.transfer[i] = *p;
+        p++; i++;
+    }
 }
 
 using lcdTestConfig = util::lcdConfig<32,32, 8>;
@@ -35,6 +44,8 @@ util::sharpMemLcd<lcdTestConfig, stubTransfer> testDevice;
 
 static void testSharpMemLcdSetup(minunitState *testResults) 
 {
+    transfers.transferCount = 0;
+    transfers.transferLength = 0;
     testDevice.init();
     testResults = testResults; /*!< supress warning */
 }
@@ -68,8 +79,14 @@ MINUNIT_ADD(testSharpMemLcdFlipVcom, testSharpMemLcdSetup, testSharpMemLcdTeardo
 {
     minUnitCheck(testDevice.frameBuffer[0] == 0x0101);
     testDevice.flipVcom();
+    minUnitCheck(transfers.transferCount == 1);
+    minUnitCheck(transfers.transferLength == 1);
+    minUnitCheck(transfers.transfer[0] == 0x0103);
     minUnitCheck(testDevice.frameBuffer[0] == 0x0103);
     testDevice.flipVcom();
+    minUnitCheck(transfers.transferCount == 2);
+    minUnitCheck(transfers.transferLength == 1);
+    minUnitCheck(transfers.transfer[0] == 0x0101);
     minUnitCheck(testDevice.frameBuffer[0] == 0x0101);
 }
 
