@@ -12,14 +12,10 @@
 static void testdsPutsSetup(minunitState *testResults) 
 {
     mockDsCharReset();
+    minUnitPass(); // supress warning
 }
 
-static void testdsPutsTeardown(minunitState *testResults) 
-{
-
-}
-
-MINUNIT_ADD(testdsPutsNormal, testdsPutsSetup, testdsPutsTeardown) 
+MINUNIT_ADD(testdsPutsNormal, testdsPutsSetup, NULL) 
 {
     char testInput[] = "abc";
     char testOutput[] = "abc";

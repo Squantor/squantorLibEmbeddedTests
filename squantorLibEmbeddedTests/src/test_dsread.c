@@ -13,14 +13,10 @@ char testabc[] = "abc";
 static void testDsReadSetup(minunitState *testResults) 
 {
     mockDsCharReset();
+    minUnitPass(); // supress warning
 }
 
-static void testDsReadTeardown(minunitState *testResults) 
-{
-
-}
-
-MINUNIT_ADD(testDsReadCharNormal, testDsReadSetup, testDsReadTeardown) 
+MINUNIT_ADD(testDsReadCharNormal, testDsReadSetup, NULL) 
 {
     char c;
     minUnitCheck(mockDsPutReads(testabc, sizeof(testabc)) == noError);

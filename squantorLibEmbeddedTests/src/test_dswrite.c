@@ -11,14 +11,10 @@
 static void testDsWriteSetup(minunitState *testResults) 
 {
     mockDsCharReset();
+    minUnitPass(); // supress warning
 }
 
-static void testDsWriteTeardown(minunitState *testResults) 
-{
-
-}
-
-MINUNIT_ADD(testDsWriteCharNormal, testDsWriteSetup, testDsWriteTeardown) 
+MINUNIT_ADD(testDsWriteCharNormal, testDsWriteSetup, NULL) 
 {
     minUnitCheck(dsWriteElement(&testDsChar, 'a') == noError);
     minUnitCheck(dsWriteElement(&testDsChar, 'b') == noError);

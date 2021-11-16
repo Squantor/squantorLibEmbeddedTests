@@ -12,14 +12,10 @@
 static void testPrintSetup(minunitState *testResults) 
 {
     mockDsCharReset();
+    minUnitPass(); // supress warning
 }
 
-static void testPrintTeardown(minunitState *testResults) 
-{
-
-}
-
-MINUNIT_ADD(testPrintDigit, testPrintSetup, testPrintTeardown) 
+MINUNIT_ADD(testPrintDigit, testPrintSetup, NULL) 
 {
     char testZero[] = "0";
     char testNine[] = "9";
@@ -44,7 +40,7 @@ MINUNIT_ADD(testPrintDigit, testPrintSetup, testPrintTeardown)
     minUnitCheck(memcmp(testOutput, testF, 1) == 0);
 }
 
-MINUNIT_ADD(testPrintHexU8, testPrintSetup, testPrintTeardown) 
+MINUNIT_ADD(testPrintHexU8, testPrintSetup, NULL) 
 {
     char testA6[] = "A6";
     char testOutput[4];
@@ -54,7 +50,7 @@ MINUNIT_ADD(testPrintHexU8, testPrintSetup, testPrintTeardown)
     minUnitCheck(memcmp(testOutput, testA6, 2) == 0);
 }
 
-MINUNIT_ADD(testPrintHexU16, testPrintSetup, testPrintTeardown) 
+MINUNIT_ADD(testPrintHexU16, testPrintSetup, NULL) 
 {
     char test1B2C[] = "1B2C";
     char testOutput[4];
@@ -64,7 +60,7 @@ MINUNIT_ADD(testPrintHexU16, testPrintSetup, testPrintTeardown)
     minUnitCheck(memcmp(testOutput, test1B2C, 4) == 0);
 }
 
-MINUNIT_ADD(testPrintHexU32, testPrintSetup, testPrintTeardown) 
+MINUNIT_ADD(testPrintHexU32, testPrintSetup, NULL) 
 {
     char test3D4E5F67[] = "3D4E5F67";
     char testOutput[8];
@@ -74,7 +70,7 @@ MINUNIT_ADD(testPrintHexU32, testPrintSetup, testPrintTeardown)
     minUnitCheck(memcmp(testOutput, test3D4E5F67, 8) == 0);
 }
 
-MINUNIT_ADD(testPrintDecU16, testPrintSetup, testPrintTeardown)
+MINUNIT_ADD(testPrintDecU16, testPrintSetup, NULL)
 {
     char test00000[] = "00000";
     char test12345[] = "12345";
@@ -94,7 +90,7 @@ MINUNIT_ADD(testPrintDecU16, testPrintSetup, testPrintTeardown)
     minUnitCheck(memcmp(testOutput, test65535, 5) == 0);
 }
 
-MINUNIT_ADD(testPrintDecNzU16, testPrintSetup, testPrintTeardown)
+MINUNIT_ADD(testPrintDecNzU16, testPrintSetup, NULL)
 {
     char test0[] = "0";
     char test10[] = "10";
@@ -140,7 +136,7 @@ MINUNIT_ADD(testPrintDecNzU16, testPrintSetup, testPrintTeardown)
     minUnitCheck(memcmp(testOutput, test65535, 5) == 0);
 }
 
-MINUNIT_ADD(testPrintDecU32, testPrintSetup, testPrintTeardown)
+MINUNIT_ADD(testPrintDecU32, testPrintSetup, NULL)
 {
     char test0000000000[] = "0000000000";
     char test1234567890[] = "1234567890";
@@ -160,7 +156,7 @@ MINUNIT_ADD(testPrintDecU32, testPrintSetup, testPrintTeardown)
     minUnitCheck(memcmp(testOutput, test4294967295, 10) == 0);
 }
 
-MINUNIT_ADD(testPrintBinU32, testPrintSetup, testPrintTeardown)
+MINUNIT_ADD(testPrintBinU32, testPrintSetup, NULL)
 {
     char test01011010111100001111111100000000[] = "01011010111100001111111100000000";
     char testOutput[32];

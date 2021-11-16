@@ -40,14 +40,10 @@ void movingAverageTestSetup(minunitState *testResults)
     testU16Reset();
     testU32Reset();
     testDoubleReset();
+    minUnitPass(); // supress warning
 }
 
-void movingAverageTestTeardown(minunitState *testResults)
-{
-
-}
-
-MINUNIT_ADD(movingAverageUint16Reset, movingAverageTestSetup, movingAverageTestTeardown)
+MINUNIT_ADD(movingAverageUint16Reset, movingAverageTestSetup, NULL)
 {
     minUnitCheck(testU16Get() == 0);
     testU16Add(10);
@@ -56,7 +52,7 @@ MINUNIT_ADD(movingAverageUint16Reset, movingAverageTestSetup, movingAverageTestT
     minUnitCheck(testU16Get() == 0);
 }
 
-MINUNIT_ADD(movingAverageUint16Get, movingAverageTestSetup, movingAverageTestTeardown)
+MINUNIT_ADD(movingAverageUint16Get, movingAverageTestSetup, NULL)
 {
     minUnitCheck(testU16Get() == 0);
     testU16Add(1);
@@ -70,7 +66,7 @@ MINUNIT_ADD(movingAverageUint16Get, movingAverageTestSetup, movingAverageTestTea
     minUnitCheck(testU16Get() == 4);
 }
 
-MINUNIT_ADD(movingAverageUint32Get, movingAverageTestSetup, movingAverageTestTeardown)
+MINUNIT_ADD(movingAverageUint32Get, movingAverageTestSetup, NULL)
 {
     minUnitCheck(testU32Get() == 0);
     testU32Add(1);
@@ -84,7 +80,7 @@ MINUNIT_ADD(movingAverageUint32Get, movingAverageTestSetup, movingAverageTestTea
     minUnitCheck(testU32Get() == 5);
 }
 
-MINUNIT_ADD(movingAverageDoubleGet, movingAverageTestSetup, movingAverageTestTeardown)
+MINUNIT_ADD(movingAverageDoubleGet, movingAverageTestSetup, NULL)
 {
     minUnitCheck(testDoubleGet() == 0);
     testDoubleAdd(1.1);

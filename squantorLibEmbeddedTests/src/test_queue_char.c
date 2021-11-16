@@ -19,20 +19,16 @@ queueChar_t testQueueChar = {
 static void testQueueSetup(minunitState *testResults) 
 {
     queueInit(&testQueueChar);
+    minUnitPass(); // supress warning
 }
 
-static void testQueueTeardown(minunitState *testResults) 
-{
-
-}
-
-MINUNIT_ADD(testQueueEmpty, testQueueSetup, testQueueTeardown) 
+MINUNIT_ADD(testQueueEmpty, testQueueSetup, NULL) 
 {
     char c;
     minUnitCheck(queueDequeue(&testQueueChar, &c) == queueEmpty);
 }
 
-MINUNIT_ADD(testQueueEnqDeq, testQueueSetup, testQueueTeardown) 
+MINUNIT_ADD(testQueueEnqDeq, testQueueSetup, NULL) 
 {
     char in = 'a';
     char out = 'q';

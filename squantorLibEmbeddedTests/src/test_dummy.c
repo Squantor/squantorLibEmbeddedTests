@@ -8,12 +8,12 @@
 
 static void testDummySetup(minunitState *testResults) 
 {
-    
+    minUnitPass(); // supress warning
 }
 
 static void testDummyTeardown(minunitState *testResults) 
 {
-
+    minUnitPass(); // supress warning
 }
 
 MINUNIT_ADD(testDummyNormal, testDummySetup, testDummyTeardown) 

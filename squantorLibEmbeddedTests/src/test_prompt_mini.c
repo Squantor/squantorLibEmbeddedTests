@@ -45,19 +45,16 @@ static void testPromptMiniSetup(minunitState *testResults)
 {
      mockDsCharReset();
      testPromptMiniData.bufferIndex = 0;
+     minUnitPass(); // supress warning
 }
 
-static void testPromptMiniTeardown(minunitState *testResults) 
-{
-}
-
-MINUNIT_ADD(testPromptMiniEmpty, testPromptMiniSetup, testPromptMiniTeardown) 
+MINUNIT_ADD(testPromptMiniEmpty, testPromptMiniSetup, NULL) 
 {
     minUnitCheck(mockDsPutReadsString("\r") == noError);
     minUnitCheck(promptProcess(&testPromptMiniData, &testDsChar) == promptError);
 }
 
-MINUNIT_ADD(testPromptMiniNormal, testPromptMiniSetup, testPromptMiniTeardown) 
+MINUNIT_ADD(testPromptMiniNormal, testPromptMiniSetup, NULL) 
 {
     minUnitCheck(mockDsPutReadsString("abcde\r") == noError);
     minUnitCheck(testPromptMiniLoop(5) == 0);

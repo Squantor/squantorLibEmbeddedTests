@@ -7,20 +7,12 @@
 #include <MinUnit.h>
 #include <parse_ansi.h>
 
-void testParseAnsiSetup(minunitState *testResults) 
-{
-}
-
-void testParseAnsiTeardown(minunitState *testResults) 
-{
-}
-
-MINUNIT_ADD(testParseAnsiEmpty, testParseAnsiSetup, testParseAnsiTeardown) 
+MINUNIT_ADD(testParseAnsiEmpty, NULL, NULL) 
 {
     minUnitCheck(ansiParse('a') == ansiError);
 }
 
-MINUNIT_ADD(testParseAnsiUnknownEscapes, testParseAnsiSetup, testParseAnsiTeardown)
+MINUNIT_ADD(testParseAnsiUnknownEscapes, NULL, NULL)
 {
     minUnitCheck(ansiParse('\e') == ansiEntered);
     minUnitCheck(ansiParse('_') == ansiError);
@@ -29,21 +21,21 @@ MINUNIT_ADD(testParseAnsiUnknownEscapes, testParseAnsiSetup, testParseAnsiTeardo
     minUnitCheck(ansiParse('_') == ansiError);    
 }
 
-MINUNIT_ADD(testParseAnsiCursorUp, testParseAnsiSetup, testParseAnsiTeardown)
+MINUNIT_ADD(testParseAnsiCursorUp, NULL, NULL)
 {
     minUnitCheck(ansiParse('\e') == ansiEntered);
     minUnitCheck(ansiParse('[') == ansiBrackOpen);
     minUnitCheck(ansiParse('A') == ansiCursorUp);
 }
 
-MINUNIT_ADD(testParseAnsiCursorForward, testParseAnsiSetup, testParseAnsiTeardown)
+MINUNIT_ADD(testParseAnsiCursorForward, NULL, NULL)
 {
     minUnitCheck(ansiParse('\e') == ansiEntered);
     minUnitCheck(ansiParse('[') == ansiBrackOpen);
     minUnitCheck(ansiParse('C') == ansiCursorForward);
 }
 
-MINUNIT_ADD(testParseAnsiInvalidValidInvalid, testParseAnsiSetup, testParseAnsiTeardown)
+MINUNIT_ADD(testParseAnsiInvalidValidInvalid, NULL, NULL)
 {
     minUnitCheck(ansiParse('a') == ansiError);
     minUnitCheck(ansiParse('\e') == ansiEntered);
