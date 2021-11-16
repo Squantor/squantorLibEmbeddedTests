@@ -47,12 +47,12 @@ static void testSharpMemLcdSetup(minunitState *testResults)
     transfers.transferCount = 0;
     transfers.transferLength = 0;
     testDevice.init();
-    testResults = testResults; /*!< supress warning */
+    minUnitPass(); /*!< supress warning */
 }
 
 static void testSharpMemLcdTeardown(minunitState *testResults) 
 {
-    testResults = testResults; /*!< supress warning */
+    minUnitPass(); /*!< supress warning */
 }
 
 MINUNIT_ADD(testSharpMemLcdInit, testSharpMemLcdSetup, testSharpMemLcdTeardown) 
@@ -99,3 +99,6 @@ MINUNIT_ADD(testStubTransfer, stubTransferReset, NULL)
     minUnitCheck(transfers.transferCount == 1);
     minUnitCheck(transfers.transferLength == 4);
 }
+
+// TODO: bitblt function
+// TODO: update LCD with only modified lines
