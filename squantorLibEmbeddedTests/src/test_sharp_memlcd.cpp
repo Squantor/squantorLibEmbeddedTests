@@ -100,5 +100,13 @@ MINUNIT_ADD(testStubTransfer, stubTransferReset, NULL)
     minUnitCheck(transfers.transferLength == 4);
 }
 
+MINUNIT_ADD(testClearBuffer, testSharpMemLcdSetup, NULL)
+{
+    minUnitCheck(testDevice.frameBuffer[1] == 0x0000);
+    testDevice.setBuffer(0x55AA);
+    minUnitCheck(testDevice.frameBuffer[2] == 0x55AA);
+}
+
+
 // TODO: bitblt function
 // TODO: update LCD with only modified lines
