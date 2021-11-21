@@ -8,51 +8,54 @@
 #include <sharp_memlcd.hpp>
 #include <array.hpp>
 
-constexpr int maxTransferLength = 32;
 
-typedef struct 
-{
-    int transferCount;
-    int transferLength;
-    uint16_t transfer[maxTransferLength];
-} stubTransferType;
+namespace {
 
-stubTransferType transfers;
+    constexpr int maxTransferLength = 32;
 
-static void stubTransferReset(minunitState *testResults) 
-{
-    transfers.transferCount = 0;
-    transfers.transferLength = 0;
-    testResults = testResults; /*!< supress warning */
-}
-
-static void stubTransfer(uint16_t * begin, uint16_t * end)
-{
-    transfers.transferCount++;
-    transfers.transferLength = end - begin;
-    uint16_t *p = begin;
-    int i = 0;
-    while(p < end || i < maxTransferLength)
+    typedef struct 
     {
-        transfers.transfer[i] = *p;
-        p++; i++;
+        int transferCount;
+        int transferLength;
+        uint16_t transfer[maxTransferLength];
+    } stubTransferType;
+
+    stubTransferType transfers;
+
+    static void stubTransferReset(minunitState *) 
+    {
+        transfers.transferCount = 0;
+        transfers.transferLength = 0;
     }
-}
 
-using lcdTestConfig = util::lcdConfig<32,32, 8>;
-util::sharpMemLcd<lcdTestConfig, stubTransfer> testDevice;
+    static void stubTransfer(uint16_t * begin, uint16_t * end)
+    {
+        transfers.transferCount++;
+        transfers.transferLength = end - begin;
+        uint16_t *p = begin;
+        int i = 0;
+        while((p < end) && (i < maxTransferLength))
+        {
+            transfers.transfer[i] = *p;
+            p++; i++;
+        }
+    }
 
-static void testSharpMemLcdSetup(minunitState *testResults) 
+    using lcdTestConfig = util::lcdConfig<32,32, 8>;
+    util::sharpMemLcd<lcdTestConfig> testDevice;
+
+};
+
+static void testSharpMemLcdSetup(minunitState *) 
 {
     transfers.transferCount = 0;
     transfers.transferLength = 0;
     testDevice.init();
-    minUnitPass(); /*!< supress warning */
 }
 
-static void testSharpMemLcdTeardown(minunitState *testResults) 
+static void testSharpMemLcdTeardown(minunitState *) 
 {
-    minUnitPass(); /*!< supress warning */
+
 }
 
 MINUNIT_ADD(testSharpMemLcdInit, testSharpMemLcdSetup, testSharpMemLcdTeardown) 
@@ -78,12 +81,12 @@ MINUNIT_ADD(testSharpMemLcdPutPixel, testSharpMemLcdSetup, testSharpMemLcdTeardo
 MINUNIT_ADD(testSharpMemLcdFlipVcom, testSharpMemLcdSetup, testSharpMemLcdTeardown)
 {
     minUnitCheck(testDevice.frameBuffer[0] == 0x0101);
-    testDevice.flipVcom();
+    testDevice.flipVcom(stubTransfer);
     minUnitCheck(transfers.transferCount == 1);
     minUnitCheck(transfers.transferLength == 1);
     minUnitCheck(transfers.transfer[0] == 0x0103);
     minUnitCheck(testDevice.frameBuffer[0] == 0x0103);
-    testDevice.flipVcom();
+    testDevice.flipVcom(stubTransfer);
     minUnitCheck(transfers.transferCount == 2);
     minUnitCheck(transfers.transferLength == 1);
     minUnitCheck(transfers.transfer[0] == 0x0101);
@@ -111,7 +114,7 @@ MINUNIT_ADD(testBitBlockTransfer, testSharpMemLcdSetup, testSharpMemLcdTeardown)
 {
     uint8_t testSetBlock[4] = {0xFF, 0xFF, 0xFF, 0xFF};
     uint8_t testClearBlock[4] = {0x00, 0x00, 0x00, 0x00};
-    testDevice.bitBlockTransfer(0, 0, testSetBlock, 1, 1);
+    testDevice.bitBlockTransfer(0, 0, testSetBlock, 8, 1);
     minUnitCheck(testDevice.frameBuffer[1] == 0x0001);
 }
 
