@@ -90,7 +90,7 @@ MINUNIT_ADD(testSharpMemLcdFlipVcom, testSharpMemLcdSetup, testSharpMemLcdTeardo
     minUnitCheck(testDevice.frameBuffer[0] == 0x0101);
 }
 
-MINUNIT_ADD(testStubTransfer, stubTransferReset, NULL)
+MINUNIT_ADD(testStubTransfer, stubTransferReset, testSharpMemLcdTeardown)
 {
     util::array<uint16_t, 4> testArray;
     minUnitCheck(transfers.transferCount == 0);
@@ -100,13 +100,19 @@ MINUNIT_ADD(testStubTransfer, stubTransferReset, NULL)
     minUnitCheck(transfers.transferLength == 4);
 }
 
-MINUNIT_ADD(testClearBuffer, testSharpMemLcdSetup, NULL)
+MINUNIT_ADD(testClearBuffer, testSharpMemLcdSetup, testSharpMemLcdTeardown)
 {
     minUnitCheck(testDevice.frameBuffer[1] == 0x0000);
     testDevice.setBuffer(0x55AA);
     minUnitCheck(testDevice.frameBuffer[2] == 0x55AA);
 }
 
+MINUNIT_ADD(testBitBlockTransfer, testSharpMemLcdSetup, testSharpMemLcdTeardown)
+{
+    uint8_t testSetBlock[4] = {0xFF, 0xFF, 0xFF, 0xFF};
+    uint8_t testClearBlock[4] = {0x00, 0x00, 0x00, 0x00};
+    testDevice.bitBlockTransfer(0, 0, testSetBlock, 1, 1);
+    minUnitCheck(testDevice.frameBuffer[1] == 0x0001);
+}
 
-// TODO: bitblt function
 // TODO: update LCD with only modified lines
