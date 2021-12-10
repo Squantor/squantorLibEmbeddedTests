@@ -51,6 +51,7 @@ static void testSharpMemLcdSetup(minunitState *)
     transfers.transferCount = 0;
     transfers.transferLength = 0;
     testDevice.init();
+    testDevice.setBuffer(0x0000);
 }
 
 static void testSharpMemLcdTeardown(minunitState *) 
@@ -114,8 +115,22 @@ MINUNIT_ADD(testBitBlockTransfer, testSharpMemLcdSetup, testSharpMemLcdTeardown)
 {
     uint8_t testSetBlock[4] = {0xFF, 0xFF, 0xFF, 0xFF};
     uint8_t testClearBlock[4] = {0x00, 0x00, 0x00, 0x00};
+    testDevice.setBuffer(0x0000);
     testDevice.bitBlockTransfer(0, 0, testSetBlock, 8, 1);
-    minUnitCheck(testDevice.frameBuffer[1] == 0x0001);
+    minUnitCheck(testDevice.frameBuffer[1] == 0x00FF);
+    minUnitCheck(testDevice.frameBuffer[2] == 0x0000);
+    minUnitCheck(testDevice.frameBuffer[4] == 0x0000);
+    minUnitCheck(testDevice.frameBuffer[5] == 0x0000);
+    testDevice.setBuffer(0xFFFF);
+    testDevice.bitBlockTransfer(1, 1, testClearBlock, 8, 2);
+    minUnitCheck(testDevice.frameBuffer[1] == 0xFFFF);
+    minUnitCheck(testDevice.frameBuffer[2] == 0xFFFF);
+    minUnitCheck(testDevice.frameBuffer[4] == 0xFE01);
+    minUnitCheck(testDevice.frameBuffer[5] == 0xFFFF);
+    minUnitCheck(testDevice.frameBuffer[7] == 0xFE01);
+    minUnitCheck(testDevice.frameBuffer[8] == 0xFFFF);
+    minUnitCheck(testDevice.frameBuffer[10] == 0xFFFF);
+    minUnitCheck(testDevice.frameBuffer[11] == 0xFFFF);
 }
 
 // TODO: update LCD with only modified lines
