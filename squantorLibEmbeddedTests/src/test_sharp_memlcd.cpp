@@ -115,22 +115,65 @@ MINUNIT_ADD(testBitBlockTransfer, testSharpMemLcdSetup, testSharpMemLcdTeardown)
 {
     uint8_t testSetBlock[4] = {0xFF, 0xFF, 0xFF, 0xFF};
     uint8_t testClearBlock[4] = {0x00, 0x00, 0x00, 0x00};
+    // write single aligned line
     testDevice.setBuffer(0x0000);
     testDevice.bitBlockTransfer(0, 0, testSetBlock, 8, 1);
+    minUnitCheck(testDevice.frameBuffer[0] == 0x0101);
     minUnitCheck(testDevice.frameBuffer[1] == 0x00FF);
     minUnitCheck(testDevice.frameBuffer[2] == 0x0000);
+    minUnitCheck(testDevice.frameBuffer[3] == 0x0201);
     minUnitCheck(testDevice.frameBuffer[4] == 0x0000);
     minUnitCheck(testDevice.frameBuffer[5] == 0x0000);
+    minUnitCheck(testDevice.frameBuffer[6] == 0x0301);
+    // line cross check
     testDevice.setBuffer(0xFFFF);
     testDevice.bitBlockTransfer(1, 1, testClearBlock, 8, 2);
+    minUnitCheck(testDevice.frameBuffer[0] == 0x0101);
     minUnitCheck(testDevice.frameBuffer[1] == 0xFFFF);
     minUnitCheck(testDevice.frameBuffer[2] == 0xFFFF);
+    minUnitCheck(testDevice.frameBuffer[3] == 0x0201);
     minUnitCheck(testDevice.frameBuffer[4] == 0xFE01);
     minUnitCheck(testDevice.frameBuffer[5] == 0xFFFF);
+    minUnitCheck(testDevice.frameBuffer[6] == 0x0301);
     minUnitCheck(testDevice.frameBuffer[7] == 0xFE01);
     minUnitCheck(testDevice.frameBuffer[8] == 0xFFFF);
+    minUnitCheck(testDevice.frameBuffer[9] == 0x0401);
     minUnitCheck(testDevice.frameBuffer[10] == 0xFFFF);
     minUnitCheck(testDevice.frameBuffer[11] == 0xFFFF);
+    // boundary cross check
+    testDevice.setBuffer(0x0000);
+    testDevice.bitBlockTransfer(14, 1, testSetBlock, 4, 2);
+    minUnitCheck(testDevice.frameBuffer[0] == 0x0101);
+    minUnitCheck(testDevice.frameBuffer[1] == 0x0000);
+    minUnitCheck(testDevice.frameBuffer[2] == 0x0000);
+    minUnitCheck(testDevice.frameBuffer[3] == 0x0201);
+    minUnitCheck(testDevice.frameBuffer[4] == 0xC000);
+    minUnitCheck(testDevice.frameBuffer[5] == 0x0003);
+    minUnitCheck(testDevice.frameBuffer[6] == 0x0301);
+    minUnitCheck(testDevice.frameBuffer[7] == 0xC000);
+    minUnitCheck(testDevice.frameBuffer[8] == 0x0003);
+    minUnitCheck(testDevice.frameBuffer[9] == 0x0401);
+    minUnitCheck(testDevice.frameBuffer[10] == 0x0000);
+    minUnitCheck(testDevice.frameBuffer[11] == 0x0000);
+    minUnitCheck(testDevice.frameBuffer[12] == 0x0501);
+    // bounds check X
+    testDevice.setBuffer(0x0000);
+    testDevice.bitBlockTransfer(30, 1, testSetBlock, 4, 2);
+    minUnitCheck(testDevice.frameBuffer[0] == 0x0101);
+    minUnitCheck(testDevice.frameBuffer[1] == 0x0000);
+    minUnitCheck(testDevice.frameBuffer[2] == 0x0000);
+    minUnitCheck(testDevice.frameBuffer[3] == 0x0201);
+    minUnitCheck(testDevice.frameBuffer[4] == 0x0000);
+    minUnitCheck(testDevice.frameBuffer[5] == 0xC000);
+    minUnitCheck(testDevice.frameBuffer[6] == 0x0301);
+    minUnitCheck(testDevice.frameBuffer[7] == 0x0000);
+    minUnitCheck(testDevice.frameBuffer[8] == 0xC000);
+    minUnitCheck(testDevice.frameBuffer[9] == 0x0401);
+    minUnitCheck(testDevice.frameBuffer[10] == 0x0000);
+    minUnitCheck(testDevice.frameBuffer[11] == 0x0000);
+    minUnitCheck(testDevice.frameBuffer[12] == 0x0501);
+
+
 }
 
 // TODO: update LCD with only modified lines
