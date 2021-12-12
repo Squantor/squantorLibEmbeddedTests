@@ -172,6 +172,22 @@ MINUNIT_ADD(testBitBlockTransfer, testSharpMemLcdSetup, testSharpMemLcdTeardown)
     minUnitCheck(testDevice.frameBuffer[10] == 0x0000);
     minUnitCheck(testDevice.frameBuffer[11] == 0x0000);
     minUnitCheck(testDevice.frameBuffer[12] == 0x0501);
+    // check inversion
+    testDevice.setBuffer(0x0000);
+    testDevice.bitBlockTransfer(14, 1, testClearBlock, 4, 2, true);
+    minUnitCheck(testDevice.frameBuffer[0] == 0x0101);
+    minUnitCheck(testDevice.frameBuffer[1] == 0x0000);
+    minUnitCheck(testDevice.frameBuffer[2] == 0x0000);
+    minUnitCheck(testDevice.frameBuffer[3] == 0x0201);
+    minUnitCheck(testDevice.frameBuffer[4] == 0xC000);
+    minUnitCheck(testDevice.frameBuffer[5] == 0x0003);
+    minUnitCheck(testDevice.frameBuffer[6] == 0x0301);
+    minUnitCheck(testDevice.frameBuffer[7] == 0xC000);
+    minUnitCheck(testDevice.frameBuffer[8] == 0x0003);
+    minUnitCheck(testDevice.frameBuffer[9] == 0x0401);
+    minUnitCheck(testDevice.frameBuffer[10] == 0x0000);
+    minUnitCheck(testDevice.frameBuffer[11] == 0x0000);
+    minUnitCheck(testDevice.frameBuffer[12] == 0x0501);
 
 
 }
