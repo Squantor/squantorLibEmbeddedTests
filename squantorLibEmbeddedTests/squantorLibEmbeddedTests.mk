@@ -33,7 +33,8 @@ $(PROJECT)/src/test_moving_average.c \
 $(PROJECT)/src/test_moving_average.cpp \
 $(PROJECT)/src/test_ringbuf.cpp \
 $(PROJECT)/src/test_atomic.cpp \
-$(PROJECT)/src/test_sharp_memlcd.cpp
+$(PROJECT)/src/test_sharp_memlcd.cpp \
+$(PROJECT)/src/test_font8x8.c
 
 INCLUDES += -I$(PROJECT)/inc
 
