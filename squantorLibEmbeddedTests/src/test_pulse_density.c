@@ -6,3 +6,11 @@
  */
 #include <MinUnit.h>
 #include <pulse_density.h>
+
+MINUNIT_ADD(testPulseDensityInit, NULL, NULL) {
+  pulseDensityModulator DUT;
+  pulseDensityInit(&DUT, 1000, 100);
+  minUnitCheck(DUT.sum == 0);
+  minUnitCheck(DUT.step == 100);
+  minUnitCheck(DUT.threshold == 1000);
+}
