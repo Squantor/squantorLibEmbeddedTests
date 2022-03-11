@@ -14,3 +14,16 @@ MINUNIT_ADD(testPulseDensityInit, NULL, NULL) {
   minUnitCheck(DUT.step == 100);
   minUnitCheck(DUT.threshold == 1000);
 }
+
+MINUNIT_ADD(testPulseDensityOutput, NULL, NULL) {
+  pulseDensityModulator DUT;
+  pulseDensityInit(&DUT, 1000, 99);
+  minUnitCheck(pulseDensityOutput(&DUT) == false);
+  minUnitCheck(DUT.sum == 99);
+  for (int i = 0; i < 9; i++) {
+    minUnitCheck(pulseDensityOutput(&DUT) == false);
+  }
+  minUnitCheck(DUT.sum == 990);
+  minUnitCheck(pulseDensityOutput(&DUT) == true);
+  minUnitCheck(DUT.sum == 89);
+}
