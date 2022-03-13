@@ -36,7 +36,8 @@ $(PROJECT)/src/test_atomic.cpp \
 $(PROJECT)/src/test_sharp_memlcd.cpp \
 $(PROJECT)/src/test_font8x8.c \
 $(PROJECT)/src/test_bitzoom.c \
-$(PROJECT)/src/test_pulse_density.c
+$(PROJECT)/src/test_pulse_density.c \
+$(PROJECT)/src/test_pulse_density.cpp
 
 INCLUDES += -I$(PROJECT)/inc
 
