@@ -3,13 +3,16 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/squantorLibEmbeddedTests/inc",
+                "${workspaceFolder}/squantorLibEmbeddedCortexMTests/inc",
                 "${workspaceFolder}/squantorLibEmbedded/inc",
-                "${workspaceFolder}/squantorMinUnit/inc"
+                "${workspaceFolder}/squantorLibEmbedded/inc/cortexM",
+                "${workspaceFolder}/squantorMinUnit/inc",
+                "${workspaceFolder}/libMcuLL/inc/"
             ],
             "defines": [
                 "DEBUG",
-                "MINUNIT_MAX_TESTS=1000"
+                "MINUNIT_MAX_TESTS=1000",
+                "MCU_LPC812M101DH20"
             ],
             "browse": {
                 "limitSymbolsToIncludedHeaders": false,

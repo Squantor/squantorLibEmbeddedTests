@@ -11,7 +11,7 @@
             "problemMatcher": "$gcc"
         },
         {
-            "label": "build CortexM based Lib Embedded Tests",
+            "label": "build CortexM LibEmbedded Tests",
             "type": "shell",
             "command": "make -j20 PROJECT=squantorLibEmbeddedCortexMTests",
             "group": "build",
