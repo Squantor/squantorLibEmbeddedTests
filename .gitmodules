@@ -4,3 +4,6 @@
 [submodule "squantorMinUnit"]
 	path = squantorMinUnit
 	url = git@github.com:Squantor/squantorMinUnit.git
+[submodule "libMcuLL"]
+	path = libMcuLL
+	url = git@github.com:Squantor/libMcuLL.git

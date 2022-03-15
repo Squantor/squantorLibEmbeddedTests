@@ -1,0 +1,5 @@
+# doxygen settings to override from the default config
+PROJECT_NAME = "squantorLibEmbedded Tests"
+OUTPUT_DIRECTORY = doxyOutput/squantorLibEmbeddedTests
+INCLUDE_PATH = squantorLibEmbeddedTests/inc squantorLibEmbedded/inc squantorMinUnit/inc
+INPUT = squantorLibEmbeddedTests/src squantorLibEmbeddedTests/inc squantorMinUnit/inc squantorMinUnit/src squantorLibEmbedded/inc squantorLibEmbedded/src
