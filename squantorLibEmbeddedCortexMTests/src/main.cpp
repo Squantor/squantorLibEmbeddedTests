@@ -1,15 +1,14 @@
 /*
  * SPDX-License-Identifier: MIT
  *
- * Copyright (c) 2021 Bart Bilos
+ * Copyright (c) 2022 Bart Bilos
  * For conditions of distribution and use, see LICENSE file
  */
-/*
- * This is simple example file which does do any I/O and thus
- * can be compiled and run on any Cortex-M MCU. However, to see
- * its effect, you'll need to use debugger.
+/* 
+ * \brief main entrypoint of squantorLibEmbedded routines for Cortex M processors
  */
 #include <generic_board.hpp>
+#include <MinUnit.h>
 
 volatile unsigned int systicks = 0;
 
@@ -19,21 +18,27 @@ void SysTick_Handler(void) {
 }
 }
 
-__attribute__((noinline, section(".ramfunc"))) void delay_cycles(uint32_t cycles) {
-  cycles /= 4;
+/** \brief overridden reporting function
+ *
+ * Executes the minunit test framework and checks the results
+ */
+void minunitReport(const char* message) {}
 
-  asm volatile(
-    "1: sub %[cycles], %[cycles], #1 \n"
-    "   nop \n"
-    "   bne 1b \n"
-    : [cycles] "+l"(cycles));
-}
-
+/**
+ * \brief Program entry point
+ *
+ * Program entry point, execution starts here. Any unittest initialisation happens here.
+ *
+ * \return returns the error code to the operating system
+ */
 int main() {
-  unsigned int currticks = systicks;
   boardInit();
+  minunitRun();
+  if (minunitTestState.failures == 0)
+    __BKPT(0);
+  else
+    __BKPT(1);
   while (1) {
-    delay_cycles(10);
     __NOP();
   }
 }

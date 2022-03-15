@@ -19,7 +19,8 @@ BOARD = generic_board
 
 # project sources
 FILES += $(PROJECT)/src/main.cpp \
-$(PROJECT)/src/$(BOARD).cpp 
+$(PROJECT)/src/$(BOARD).cpp \
+$(PROJECT)/src/test_delay_cycles.c
 
 INCLUDES += -I$(PROJECT)/inc
 
