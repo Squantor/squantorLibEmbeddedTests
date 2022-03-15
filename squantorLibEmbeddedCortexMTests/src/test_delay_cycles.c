@@ -4,6 +4,9 @@
  * Copyright (c) 2022 Bart Bilos
  * For conditions of distribution and use, see LICENSE file
  */
+/*
+ * \brief
+ */
 #include <mcu_ll.h>
 #include <MinUnit.h>
 #include <delay_cycles.h>
