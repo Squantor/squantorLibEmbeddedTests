@@ -7,28 +7,34 @@
 #include <MinUnit.h>
 #include <fonts/font_8x8.hpp>
 
-MINUNIT_ADD(testFont8x8, NULL, NULL) {
+MINUNIT_ADD(testMono8x8Col, NULL, NULL) {
+  const uint8_t* begin = mono8x8Col.fontBitmap;
+  const uint8_t* end = mono8x8Col.fontBitmap + mono8x8Col.fontBitmapSize;
   for (int i = 0; i < 128; i++) {
-    minUnitCheck(ascii2font8x8Index[i] < sizeof(font8x8Horizontal));
-  }
-  const uint8_t* begin = &font8x8Horizontal[0];
-  const uint8_t* end = &font8x8Horizontal[sizeof(font8x8Horizontal)];
-  for (int i = 0; i < 128; i++) {
-    const uint8_t* bitmapPtr = ascii2Font8x8(font8x8Horizontal, i);
+    minUnitCheck(mono8x8Col.ascii2index[i] < 760);
+    const uint8_t* bitmapPtr = ascii2Font(mono8x8Col, i);
     minUnitCheck(bitmapPtr >= begin);
     minUnitCheck(bitmapPtr < end);
   }
-  begin = &font8x8Vertical[0];
-  end = &font8x8Vertical[sizeof(font8x8Vertical)];
+}
+
+MINUNIT_ADD(testMono8x8Row, NULL, NULL) {
+  const uint8_t* begin = mono8x8Row.fontBitmap;
+  const uint8_t* end = mono8x8Row.fontBitmap + mono8x8Row.fontBitmapSize;
   for (int i = 0; i < 128; i++) {
-    const uint8_t* bitmapPtr = ascii2Font8x8(font8x8Vertical, i);
+    minUnitCheck(mono8x8Row.ascii2index[i] < 760);
+    const uint8_t* bitmapPtr = ascii2Font(mono8x8Row, i);
     minUnitCheck(bitmapPtr >= begin);
     minUnitCheck(bitmapPtr < end);
   }
-  begin = &font8x8VerticalFlipped[0];
-  end = &font8x8VerticalFlipped[sizeof(font8x8VerticalFlipped)];
+}
+
+MINUNIT_ADD(testMono8x8RowFlip, NULL, NULL) {
+  const uint8_t* begin = mono8x8RowFlip.fontBitmap;
+  const uint8_t* end = mono8x8RowFlip.fontBitmap + mono8x8RowFlip.fontBitmapSize;
   for (int i = 0; i < 128; i++) {
-    const uint8_t* bitmapPtr = ascii2Font8x8(font8x8VerticalFlipped, i);
+    minUnitCheck(mono8x8RowFlip.ascii2index[i] < 760);
+    const uint8_t* bitmapPtr = ascii2Font(mono8x8RowFlip, i);
     minUnitCheck(bitmapPtr >= begin);
     minUnitCheck(bitmapPtr < end);
   }
