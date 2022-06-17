@@ -24,10 +24,15 @@ MINUNIT_ADD(testBitBlit1DCases, NULL, NULL) {
   memset(testDest, 0, sizeof(testDest));
   util::bitblit1d(testDest, testDestSize, 16, testSrc, 5);
   minUnitCheck(testDest[2] == 0x1F);
+  // less then one byte not aligned
+  memset(testDest, 0, sizeof(testDest));
+  util::bitblit1d(testDest, testDestSize, 9, testSrc, 3);
+  minUnitCheck(testDest[1] == 0x0E);
   // less then one byte crossing
   memset(testDest, 0, sizeof(testDest));
-  util::bitblit1d(testDest, testDestSize, 8, testSrc, 3);
-  minUnitCheck(testDest[1] == 0x07);
+  util::bitblit1d(testDest, testDestSize, 7, testSrc, 3);
+  minUnitCheck(testDest[0] == 0x80);
+  minUnitCheck(testDest[1] == 0x03);
   // single byte aligned
   memset(testDest, 0, sizeof(testDest));
   util::bitblit1d(testDest, testDestSize, 8, testSrc, 8);
