@@ -15,6 +15,8 @@
 #include <stdint.h>
 #include <bitblit.hpp>
 
+
+// TODO change trivial bit patterns to something more challenging
 MINUNIT_ADD(testBitBlit1DCases, NULL, NULL) {
   // we add one extra byte as canary to check out of bound writes
   uint8_t testDest[5]{0x00, 0x00, 0x00, 0x00, 0x00};
@@ -30,9 +32,9 @@ MINUNIT_ADD(testBitBlit1DCases, NULL, NULL) {
   minUnitCheck(testDest[1] == 0x0E);
   // less then one byte crossing
   memset(testDest, 0, sizeof(testDest));
-  util::bitblit1d(testDest, testDestSize, 7, testSrc, 3);
-  minUnitCheck(testDest[0] == 0x80);
-  minUnitCheck(testDest[1] == 0x03);
+  util::bitblit1d(testDest, testDestSize, 15, testSrc, 3);
+  minUnitCheck(testDest[1] == 0x80);
+  minUnitCheck(testDest[2] == 0x03);
   // single byte aligned
   memset(testDest, 0, sizeof(testDest));
   util::bitblit1d(testDest, testDestSize, 8, testSrc, 8);
