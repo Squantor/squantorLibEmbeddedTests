@@ -26,23 +26,23 @@ MINUNIT_ADD(testReadModifyWrite, NULL, NULL) {
   // test MOV
   testSource = 0xF;
   testDestination = 0x00;
-  util::readModifyWrite(&testDestination, &testSource, 0x3C, 2, util::bitblitOperation::OP_NONE);
+  util::readModifyWrite(&testDestination, &testSource, 0x3C, 2, util::bitblitOperation::OP_MOV);
   minUnitCheck(testDestination == 0x3C);
   testSource = 0xF0;
   testDestination = 0x00;
-  util::readModifyWrite(&testDestination, &testSource, 0x3C, -2, util::bitblitOperation::OP_NONE);
+  util::readModifyWrite(&testDestination, &testSource, 0x3C, -2, util::bitblitOperation::OP_MOV);
   minUnitCheck(testDestination == 0x3C);
   testSource = 0x0F;
   testDestination = 0x01;
-  util::readModifyWrite(&testDestination, &testSource, 0x3C, 2, util::bitblitOperation::OP_NONE);
+  util::readModifyWrite(&testDestination, &testSource, 0x3C, 2, util::bitblitOperation::OP_MOV);
   minUnitCheck(testDestination == 0x3D);
   testSource = 0x0F;
   testDestination = 0x91;
-  util::readModifyWrite(&testDestination, &testSource, 0x3C, 2, util::bitblitOperation::OP_NONE);
+  util::readModifyWrite(&testDestination, &testSource, 0x3C, 2, util::bitblitOperation::OP_MOV);
   minUnitCheck(testDestination == 0xBD);
   testSource = 0x02;
   testDestination = 0x81;
-  util::readModifyWrite(&testDestination, &testSource, 0x03, 0, util::bitblitOperation::OP_NONE);
+  util::readModifyWrite(&testDestination, &testSource, 0x03, 0, util::bitblitOperation::OP_MOV);
   minUnitCheck(testDestination == 0x82);
   // test NOT
   testSource = 0xF;
