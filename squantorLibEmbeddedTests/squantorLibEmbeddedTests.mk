@@ -38,7 +38,8 @@ $(PROJECT)/src/test_font8x8.cpp \
 $(PROJECT)/src/test_bitzoom.c \
 $(PROJECT)/src/test_pulse_density.c \
 $(PROJECT)/src/test_pulse_density.cpp \
-$(PROJECT)/src/test_bitblit1d.cpp
+$(PROJECT)/src/test_bitblit1d.cpp \
+$(PROJECT)/src/test_rmw.cpp
 
 INCLUDES += -I$(PROJECT)/inc
 
