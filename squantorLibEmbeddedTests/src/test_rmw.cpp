@@ -19,10 +19,10 @@ MINUNIT_ADD(testReadModifyWrite, NULL, NULL) {
   uint8_t testSource = 0x00;
   uint8_t testDestination = 0x00;
   // test AND
-  testSource = 0x0C;
-  testDestination = 0x3F;
-  util::readModifyWrite(&testDestination, &testSource, 0x3C, 2, util::bitblitOperation::OP_AND);
-  minUnitCheck(testDestination == 0x33);
+  testSource = 0xAA;
+  testDestination = 0xCC;
+  util::readModifyWrite(&testDestination, &testSource, 0x0F, 0, util::bitblitOperation::OP_AND);
+  minUnitCheck(testDestination == 0xC8);
   // test MOV
   testSource = 0xF;
   testDestination = 0x00;
@@ -40,6 +40,10 @@ MINUNIT_ADD(testReadModifyWrite, NULL, NULL) {
   testDestination = 0x91;
   util::readModifyWrite(&testDestination, &testSource, 0x3C, 2, util::bitblitOperation::OP_NONE);
   minUnitCheck(testDestination == 0xBD);
+  testSource = 0x02;
+  testDestination = 0x81;
+  util::readModifyWrite(&testDestination, &testSource, 0x03, 0, util::bitblitOperation::OP_NONE);
+  minUnitCheck(testDestination == 0x82);
   // test NOT
   testSource = 0xF;
   testDestination = 0xFF;
@@ -50,13 +54,13 @@ MINUNIT_ADD(testReadModifyWrite, NULL, NULL) {
   util::readModifyWrite(&testDestination, &testSource, 0x3C, -2, util::bitblitOperation::OP_NOT);
   minUnitCheck(testDestination == 0x03);
   // test OR
-  testSource = 0x0C;
-  testDestination = 0x0F;
-  util::readModifyWrite(&testDestination, &testSource, 0x3C, 2, util::bitblitOperation::OP_OR);
-  minUnitCheck(testDestination == 0x3F);
+  testSource = 0xAA;
+  testDestination = 0xCC;
+  util::readModifyWrite(&testDestination, &testSource, 0xF0, 4, util::bitblitOperation::OP_OR);
+  minUnitCheck(testDestination == 0xEC);
   // test XOR
-  testSource = 0x0F;
-  testDestination = 0x0F;
-  util::readModifyWrite(&testDestination, &testSource, 0x3C, 2, util::bitblitOperation::OP_XOR);
-  minUnitCheck(testDestination == 0x33);
+  testSource = 0xAA;
+  testDestination = 0xCC;
+  util::readModifyWrite(&testDestination, &testSource, 0xF0, 4, util::bitblitOperation::OP_XOR);
+  minUnitCheck(testDestination == 0x6C);
 }
