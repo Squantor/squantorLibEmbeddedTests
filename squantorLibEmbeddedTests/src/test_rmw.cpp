@@ -15,7 +15,7 @@
 #include <stdint.h>
 #include <bitblit.hpp>
 
-MINUNIT_ADD(testReadModifyWrite, NULL, NULL) {
+MINUNIT_ADD(testReadModifyWrite8bit, NULL, NULL) {
   uint8_t testSource = 0x00;
   uint8_t testDestination = 0x00;
   // test AND
@@ -63,4 +63,16 @@ MINUNIT_ADD(testReadModifyWrite, NULL, NULL) {
   testDestination = 0xCC;
   util::readModifyWrite(&testDestination, &testSource, 0xF0, 4, util::bitblitOperation::OP_XOR);
   minUnitCheck(testDestination == 0x6C);
+}
+
+MINUNIT_ADD(testReadModifyWrite16bit, NULL, NULL) {
+  uint8_t testSource = 0x00;
+  uint16_t testDestination = 0x00;
+  // test MOV
+  testSource = 0xFF;
+  testDestination = 0x0000;
+  util::readModifyWrite(&testDestination, &testSource, 0x3C00, 8, util::bitblitOperation::OP_MOV);
+  minUnitCheck(testDestination == 0x3C00);
+  minUnitPass();
+  // TODO
 }
