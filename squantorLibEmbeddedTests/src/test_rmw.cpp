@@ -74,5 +74,16 @@ MINUNIT_ADD(testReadModifyWrite16bit, NULL, NULL) {
   util::readModifyWrite(&testDestination, &testSource, 0x3C00, 8, util::bitblitOperation::OP_MOV);
   minUnitCheck(testDestination == 0x3C00);
   minUnitPass();
-  // TODO
+  // TODO the rest
+}
+
+MINUNIT_ADD(testReadModifyWrite32bit, NULL, NULL) {
+  uint8_t testSource = 0x00;
+  uint32_t testDestination = 0x00000000;
+  // test MOV
+  testSource = 0xFF;
+  testDestination = 0x00000000;
+  util::readModifyWrite(&testDestination, &testSource, 0x0003C000, 12, util::bitblitOperation::OP_MOV);
+  minUnitCheck(testDestination == 0x0003C000);
+  // TODO the rest
 }
