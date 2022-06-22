@@ -30,4 +30,16 @@ MINUNIT_ADD(testBitBlit2DCases, NULL, NULL) {
   minUnitCheck(dest[5] == 0xFD);
   minUnitCheck(dest[6] == 0xc5);
   minUnitCheck(dest[7] == 0xc5);
+  //
+  memset(dest, 0x5c, sizeof(dest));
+  memset(src, 0x29, sizeof(src));
+  util::bitblit2d(dest, 16, 4, 0, 1, src, 12, 2, util::bitblitOperation::OP_MOV);
+  minUnitCheck(dest[0] == 0x5c);
+  minUnitCheck(dest[1] == 0x5c);
+  minUnitCheck(dest[2] == 0x29);
+  minUnitCheck(dest[3] == 0x59);
+  minUnitCheck(dest[4] == 0x29);
+  minUnitCheck(dest[5] == 0x59);
+  minUnitCheck(dest[6] == 0x5c);
+  minUnitCheck(dest[7] == 0x5c);
 }
