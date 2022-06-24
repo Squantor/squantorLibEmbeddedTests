@@ -18,7 +18,7 @@
 
 // TODO, make source a bit more different to detect bugs
 MINUNIT_ADD(testElementPackto8, NULL, NULL) {
-  uint8_t src8[] = {0x5A, 0x5A, 0x5A, 0x5A, 0x5A};
+  uint8_t src8[] = {0x5A, 0x29, 0x9C, 0xF3, 0x4D};
   uint8_t dest8[] = {0x00};
   uint16_t dest16[] = {0x0000};
   uint32_t dest32[] = {0x00000000};
@@ -29,7 +29,7 @@ MINUNIT_ADD(testElementPackto8, NULL, NULL) {
   // pack equal sized 8bit and unaligned positive
   dest8[0] = 0xBB;
   util::elementPack(dest8, src8, 4, util::bitblitOperation::OP_MOV);
-  minUnitCheck(dest8[0] == 0xA5);
+  minUnitCheck(dest8[0] == 0xA2);
   // pack equal sized 8bit and unaligned negative
   dest8[0] = 0xBB;
   util::elementPack(dest8, src8, -4, util::bitblitOperation::OP_MOV);
@@ -37,27 +37,27 @@ MINUNIT_ADD(testElementPackto8, NULL, NULL) {
   // pack unequal sized 16bit and aligned
   dest16[0] = 0xABCD;
   util::elementPack(dest16, src8, 0, util::bitblitOperation::OP_MOV);
-  minUnitCheck(dest16[0] == 0x5A5A);
+  minUnitCheck(dest16[0] == 0x5A29);
   // pack unequal sized 16bit and unaligned positive
   dest16[0] = 0xABCD;
   util::elementPack(dest16, src8, 4, util::bitblitOperation::OP_MOV);
-  minUnitCheck(dest16[0] == 0xA5A5);
+  minUnitCheck(dest16[0] == 0xA299);
   // pack unequal sized 16bit and unaligned negative
   dest16[0] = 0xABCD;
   util::elementPack(dest16, src8, -4, util::bitblitOperation::OP_MOV);
-  minUnitCheck(dest16[0] == 0xA5A5);
+  minUnitCheck(dest16[0] == 0xA5A2);
   // pack unequal sized 32bit and aligned
   dest32[0] = 0x12345678;
   util::elementPack(dest32, src8, 0, util::bitblitOperation::OP_MOV);
-  minUnitCheck(dest32[0] == 0x5A5A5A5A);
+  minUnitCheck(dest32[0] == 0x5A299CF3);
   // pack unequal sized 32bit and unaligned positive
   dest32[0] = 0x12345678;
   util::elementPack(dest32, src8, 4, util::bitblitOperation::OP_MOV);
-  minUnitCheck(dest32[0] == 0xA5A5A5A5);
+  minUnitCheck(dest32[0] == 0xA299CF34);
   // pack unequal sized 32bit and unaligned negative
   dest32[0] = 0x12345678;
   util::elementPack(dest32, src8, -4, util::bitblitOperation::OP_MOV);
-  minUnitCheck(dest32[0] == 0x15A5A5A5);
+  minUnitCheck(dest32[0] == 0x15A299CF);
 }
 
 MINUNIT_ADD(testElementPackto16, NULL, NULL) {
