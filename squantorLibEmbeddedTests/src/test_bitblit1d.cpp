@@ -19,7 +19,7 @@ MINUNIT_ADD(testBitBlit1DCases, NULL, NULL) {
   // we add one extra byte as canary to check out of bound writes
   uint8_t testDest[5]{0xA5, 0xA5, 0xA5, 0xA5, 0xA5};
   uint8_t testSrc[4]{0x12, 0x34, 0x56, 0x78};
-  unsigned int testDestSize = sizeof(testDest) - 1;
+  unsigned int testDestSize = 32;
   // less then one byte aligned
   memset(testDest, 0xA5, sizeof(testDest));
   testSrc[0] = 0x33;
