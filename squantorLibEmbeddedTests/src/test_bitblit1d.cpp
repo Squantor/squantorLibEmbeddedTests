@@ -19,16 +19,18 @@ MINUNIT_ADD(testBitBlit1DCases, NULL, NULL) {
   // we add one extra byte as canary to check out of bound writes
   uint8_t testDest[5]{0xA5, 0xA5, 0xA5, 0xA5, 0xA5};
   uint8_t testSrc[4]{0x12, 0x34, 0x56, 0x78};
-  size_t testDestSize = sizeof(testDest) - 1;  // subtract one for canary
+  unsigned int testDestSize = sizeof(testDest) - 1;
   // less then one byte aligned
   memset(testDest, 0xA5, sizeof(testDest));
   testSrc[0] = 0x33;
-  util::bitblit1d(testDest, testDestSize, 16, testSrc, 4, util::bitblitOperation::OP_MOV);
+  util::bitblit1d(testDest, testDestSize, static_cast<unsigned int>(16), testSrc, static_cast<unsigned int>(4),
+                  util::bitblitOperation::OP_MOV);
   minUnitCheck(testDest[2] == 0xA3);
   // less then one byte not aligned
   memset(testDest, 0xA5, sizeof(testDest));
   testSrc[0] = 0x13;
-  util::bitblit1d(testDest, testDestSize, 12, testSrc, 4, util::bitblitOperation::OP_MOV);
+  util::bitblit1d(testDest, testDestSize, static_cast<unsigned int>(12), testSrc, static_cast<unsigned int>(4),
+                  util::bitblitOperation::OP_MOV);
   minUnitCheck(testDest[1] == 0x35);
   // less then one byte crossing
   memset(testDest, 0xA5, sizeof(testDest));
