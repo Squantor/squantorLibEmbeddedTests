@@ -41,7 +41,8 @@ $(PROJECT)/src/test_pulse_density.cpp \
 $(PROJECT)/src/test_bitblit1d.cpp \
 $(PROJECT)/src/test_rmw.cpp \
 $(PROJECT)/src/test_bitblit2d.cpp \
-$(PROJECT)/src/test_elementpack.cpp
+$(PROJECT)/src/test_elementpack.cpp \
+$(PROJECT)/src/test_bitblit2dsmall.cpp
 
 INCLUDES += -I$(PROJECT)/inc
 
