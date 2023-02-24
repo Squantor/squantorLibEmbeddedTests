@@ -4,16 +4,16 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build PC based Lib Embedded Tests",
+            "label": "build libEmbeddedTests",
             "type": "shell",
-            "command": "make -j20 PROJECT=squantorLibEmbeddedTests",
+            "command": "bear -- make -j28 PROJECT=libEmbeddedTests",
             "group": "build",
             "problemMatcher": "$gcc"
         },
         {
             "label": "build CortexM LibEmbedded Tests",
             "type": "shell",
-            "command": "make -j20 PROJECT=squantorLibEmbeddedCortexMTests",
+            "command": "bear -- make -j28 PROJECT=squantorLibEmbeddedCortexMTests",
             "group": "build",
             "problemMatcher": "$gcc"
         },

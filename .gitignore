@@ -4,12 +4,16 @@ build/
 # build output
 bin/
 
-# log files
+# miscellanious generated files
 *.log
 disassemblies/
+compile_commands.json
 
 # doxygen output
 documentation/
 
 # visual studio code files
 .vscode/settings.json
+
+#cortex debug temporaries
+.cortex-debug*
