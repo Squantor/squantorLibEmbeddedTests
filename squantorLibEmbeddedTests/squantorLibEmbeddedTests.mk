@@ -7,8 +7,8 @@
 # Version: 20200722
 
 # additional library includes
-include squantorMinUnit/squantorMinUnit.mk
-include squantorLibEmbedded/squantorLibEmbedded.mk
+include squantorMinUnit/squantorMinUnit.mak
+include squantorLibEmbedded/squantorLibEmbedded.mak
 
 # project settings
 TARGET = PC
