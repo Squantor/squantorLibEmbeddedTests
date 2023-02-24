@@ -31,8 +31,22 @@ static void testGenericSpiDriverTeardown(minunitState *testResults) {
 }
 
 MINUNIT_ADD(testGenericSpiDriverTransmit, testGenericSpiDriverSetup, testGenericSpiDriverTeardown) {
-  util::array<uint16_t, 5> testbuf = {0xF0F0, 0xA5A5, 3u, 4u, 5u};
+  util::array<uint16_t, 5> testbuf = {0x55FF, 0xA5A5, 3u, 4u, 5u};
   testSpiPeripheral.transmit(testChipEnables::CHIP_EN_0, testbuf.data(), 9, true);
   minUnitCheck(9 == testRegisters.bits);
-
+  minUnitCheck(0x1FF == testRegisters.data[0]);
+  minUnitCheck(0x0 == testRegisters.data[1]);
+  testSpiPeripheral.transmit(testChipEnables::CHIP_EN_0, testbuf.data(), 16, true);
+  minUnitCheck(16 == testRegisters.bits);
+  minUnitCheck(0x55FF == testRegisters.data[0]);
+  minUnitCheck(0x0 == testRegisters.data[1]);
+  testbuf[0] = 0x1234;
+  testSpiPeripheral.transmit(testChipEnables::CHIP_EN_0, testbuf.data(), 20, true);
+  minUnitCheck(20 == testRegisters.bits);
+  minUnitCheck(0x1234 == testRegisters.data[0]);
+  minUnitCheck(0x5 == testRegisters.data[1]);
+  testSpiPeripheral.transmit(testChipEnables::CHIP_EN_0, testbuf.data(), 28, true);
+  minUnitCheck(28 == testRegisters.bits);
+  minUnitCheck(0x1234 == testRegisters.data[0]);
+  minUnitCheck(0x5A5 == testRegisters.data[1]);
 }
