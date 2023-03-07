@@ -9,15 +9,15 @@
  *  Tests for generic SPI class/driver
  */
 #include <MinUnit.h>
-#include <spi.hpp>
+#include <hardware_mocks.hpp>
 
 enum class testChipEnables : uint32_t {
   CHIP_EN_0 = 0,
   CHIP_EN_1 = 1,
 };
 
-util::spi::PC::registers<100> testRegisters;
-util::spi::PC::spiPeripheral<testRegisters, testChipEnables> testSpiPeripheral;
+util::hardware_mocks::registers::spiRegisters<100> testRegisters;
+util::hardware_mocks::spi<testRegisters, testChipEnables> testSpiPeripheral;
 
 static void testGenericSpiDriverSetup(minunitState *testResults) {
   // minUnitPass();  // supress warning
