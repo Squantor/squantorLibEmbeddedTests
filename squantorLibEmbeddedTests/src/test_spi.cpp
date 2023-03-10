@@ -51,6 +51,29 @@ MINUNIT_ADD(testGenericSpiTransmit, testGenericSpiSetup, testGenericSpiTeardown)
 
 MINUNIT_ADD(testGenericSpiReceive, testGenericSpiSetup, testGenericSpiTeardown) {
   std::array<uint16_t, 10> testBuf{0x0123, 0x4567, 0x89ab, 0xcdef};
+  std::array<uint16_t, 10> receiveBuf;
   testSpiPeripheral.rxTransactionAdd(util::hardware_mocks::spiChipEnables::SPI_DEV_1, testBuf.data(), 20, true);
   minUnitCheck(1 == testSpiPeripheral.rxTransactionCount());
+  receiveBuf.fill(0);
+  testSpiPeripheral.receive(util::hardware_mocks::spiChipEnables::SPI_DEV_1, receiveBuf.data(), 20, true);
+  minUnitCheck(util::hardware_mocks::spiErrors::noError == testSpiPeripheral.spiError);
+  minUnitCheck(receiveBuf[0] == testBuf[0]);
+  minUnitCheck(receiveBuf[1] == testBuf[1]);
+  minUnitCheck(0 == receiveBuf[2]);
+  testSpiPeripheral.rxTransactionAdd(util::hardware_mocks::spiChipEnables::SPI_DEV_2, testBuf.data(), 8, false);
+  testSpiPeripheral.rxTransactionAdd(util::hardware_mocks::spiChipEnables::SPI_DEV_2, testBuf.data(), 35, true);
+  minUnitCheck(3 == testSpiPeripheral.rxTransactionCount());
+  receiveBuf.fill(0);
+  testSpiPeripheral.receive(util::hardware_mocks::spiChipEnables::SPI_DEV_2, receiveBuf.data(), 8, false);
+  minUnitCheck(util::hardware_mocks::spiErrors::noError == testSpiPeripheral.spiError);
+  minUnitCheck(receiveBuf[0] == testBuf[0]);
+  minUnitCheck(0 == receiveBuf[1]);
+  receiveBuf.fill(0);
+  testSpiPeripheral.receive(util::hardware_mocks::spiChipEnables::SPI_DEV_2, receiveBuf.data(), 34, true);
+  minUnitCheck(util::hardware_mocks::spiErrors::mismatch == testSpiPeripheral.spiError);
+  testSpiPeripheral.spiError = util::hardware_mocks::spiErrors::noError;
+  testSpiPeripheral.receive(util::hardware_mocks::spiChipEnables::SPI_DEV_2, receiveBuf.data(), 35, true);
+  minUnitCheck(util::hardware_mocks::spiErrors::noError == testSpiPeripheral.spiError);
+  minUnitCheck(receiveBuf[0] == testBuf[0]);
+  minUnitCheck(receiveBuf[1] == testBuf[1]);
 }
