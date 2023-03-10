@@ -23,6 +23,8 @@ static void testGenericSpiTeardown(minunitState* testResults) {
   minUnitPass();
 }
 
+// TODO, test the mocking functions before testing transactions? or is the integration already enough?
+
 MINUNIT_ADD(testGenericSpiTransmit, testGenericSpiSetup, testGenericSpiTeardown) {
   std::array<uint16_t, 10> testBuf{0x0123, 0x4567, 0x89ab, 0xcdef};
   testSpiPeripheral.transmit(util::hardware_mocks::spiChipEnables::SPI_DEV_0, testBuf.data(), 5, true);
@@ -50,5 +52,5 @@ MINUNIT_ADD(testGenericSpiTransmit, testGenericSpiSetup, testGenericSpiTeardown)
 MINUNIT_ADD(testGenericSpiReceive, testGenericSpiSetup, testGenericSpiTeardown) {
   std::array<uint16_t, 10> testBuf{0x0123, 0x4567, 0x89ab, 0xcdef};
   testSpiPeripheral.rxTransactionAdd(util::hardware_mocks::spiChipEnables::SPI_DEV_1, testBuf.data(), 20, true);
-  minUnitPass();
+  minUnitCheck(1 == testSpiPeripheral.rxTransactionCount());
 }
