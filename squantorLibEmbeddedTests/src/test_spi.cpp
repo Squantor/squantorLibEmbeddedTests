@@ -12,7 +12,6 @@
 #include <array>
 #include <hardware_mocks.hpp>
 
-
 util::hardware_mocks::spi<100, util::hardware_mocks::spiChipEnables> testSpiPeripheral;
 
 static void testGenericSpiSetup(minunitState* testResults) {
@@ -46,4 +45,10 @@ MINUNIT_ADD(testGenericSpiTransmit, testGenericSpiSetup, testGenericSpiTeardown)
   minUnitCheck(0 != testSpiPeripheral.txTransactionGetLast(3));
   data = testSpiPeripheral.txTransactionGetData(3);
   minUnitCheck(0x4567 == *(data + 1));
+}
+
+MINUNIT_ADD(testGenericSpiReceive, testGenericSpiSetup, testGenericSpiTeardown) {
+  std::array<uint16_t, 10> testBuf{0x0123, 0x4567, 0x89ab, 0xcdef};
+  testSpiPeripheral.rxTransactionAdd(util::hardware_mocks::spiChipEnables::SPI_DEV_1, testBuf.data(), 20, true);
+  minUnitPass();
 }
