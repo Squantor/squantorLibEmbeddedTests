@@ -77,3 +77,24 @@ MINUNIT_ADD(testGenericSpiReceive, testGenericSpiSetup, testGenericSpiTeardown) 
   minUnitCheck(receiveBuf[0] == testBuf[0]);
   minUnitCheck(receiveBuf[1] == testBuf[1]);
 }
+
+MINUNIT_ADD(testGenericSpiTransceive, testGenericSpiSetup, testGenericSpiTeardown) {
+  std::array<uint16_t, 10> txBuf{0x0123, 0x4567, 0x89ab, 0xcdef};
+  uint16_t* txResultBuf;
+  std::array<uint16_t, 10> rxBuf{0x0123, 0x4567, 0x89ab, 0xcdef};
+  std::array<uint16_t, 10> rxResultBuf;
+  testSpiPeripheral.rxTransactionAdd(util::hardware_mocks::spiChipEnables::SPI_DEV_0, rxBuf.data(), 20, true);
+  minUnitCheck(1 == testSpiPeripheral.rxTransactionCount());
+  rxResultBuf.fill(0);
+  testSpiPeripheral.transceive(util::hardware_mocks::spiChipEnables::SPI_DEV_0, txBuf.data(), rxResultBuf.data(), 20, true);
+  minUnitCheck(util::hardware_mocks::spiErrors::noError == testSpiPeripheral.spiError);
+  minUnitCheck(rxBuf[0] == rxResultBuf[0]);
+  minUnitCheck(rxBuf[1] == rxResultBuf[1]);
+  minUnitCheck(0 == rxResultBuf[2]);
+  minUnitCheck(1 == testSpiPeripheral.txTransactionCount());
+  minUnitCheck(20 == testSpiPeripheral.txTransactionGetBits(1));
+  minUnitCheck(static_cast<uint16_t>(util::hardware_mocks::spiChipEnables::SPI_DEV_0) == testSpiPeripheral.txTransactionGetChip(1));
+  minUnitCheck(0 != testSpiPeripheral.txTransactionGetLast(1));
+  txResultBuf = testSpiPeripheral.txTransactionGetData(1);
+  minUnitCheck(0x0123 == txResultBuf[0]);
+}
