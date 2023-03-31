@@ -41,7 +41,10 @@ $(PROJ_DIR)/src/test_rmw.cpp \
 $(PROJ_DIR)/src/test_bitblit2d.cpp \
 $(PROJ_DIR)/src/test_elementpack.cpp \
 $(PROJ_DIR)/src/test_bitblit2dsmall.cpp \
-$(PROJ_DIR)/src/test_spi.cpp
+$(PROJ_DIR)/src/test_spi.cpp \
+$(PROJ_DIR)/src/test_parity.c \
+$(PROJ_DIR)/src/test_parity.cpp
+
 $(NAME)_INCLUDES := -I$(PROJ_DIR)/inc
 $(NAME)_PREBUILD_SCRIPT := $(PROJ_DIR)/prebuild.sh
 $(NAME)_POSTBUILD_SCRIPT := $(PROJ_DIR)/postbuild.sh
