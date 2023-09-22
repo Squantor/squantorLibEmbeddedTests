@@ -44,7 +44,8 @@ $(PROJ_DIR)/src/test_bitblit2dsmall.cpp \
 $(PROJ_DIR)/src/test_spi.cpp \
 $(PROJ_DIR)/src/test_parity.c \
 $(PROJ_DIR)/src/test_parity.cpp \
-$(PROJ_DIR)/src/test_coroutine.c
+$(PROJ_DIR)/src/test_coroutine.c \
+$(PROJ_DIR)/src/test_coroutine.cpp
 
 $(NAME)_INCLUDES := -I$(PROJ_DIR)/inc
 $(NAME)_PREBUILD_SCRIPT := $(PROJ_DIR)/prebuild.sh
