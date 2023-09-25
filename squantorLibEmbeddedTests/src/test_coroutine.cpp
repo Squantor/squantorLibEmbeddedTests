@@ -9,7 +9,7 @@
 
 class coroutineVoid {
  public:
-  coroutineVoid() = default;
+  coroutineVoid() : crCurrent{nullptr, false} {}
   ~coroutineVoid() = default;
 
   void coroutine(void) {
@@ -28,7 +28,7 @@ class coroutineVoid {
     CR_END_V;
   }
 
-  crState crLine;
+  crState crCurrent;
   int coroutineState;
   int coroutineWait;
 };
@@ -54,7 +54,7 @@ class coroutineNonVoid {
     CR_END(coroutineState);
   }
 
-  crState crLine;
+  crState crCurrent;
   int coroutineState;
   int coroutineWait;
 };
@@ -63,10 +63,10 @@ coroutineVoid testCoroutineVoid;
 coroutineNonVoid testCoroutineNonVoid;
 
 static void testCoroutineSetup(minunitState *testResults) {
-  testCoroutineVoid.crLine = CR_START_LINE;
+  testCoroutineVoid.crCurrent.initialized = false;
   testCoroutineVoid.coroutineState = 42;
   testCoroutineVoid.coroutineWait = 0;
-  testCoroutineNonVoid.crLine = CR_START_LINE;
+  testCoroutineNonVoid.crCurrent.initialized = false;
   testCoroutineNonVoid.coroutineState = 42;
   testCoroutineNonVoid.coroutineWait = 0;
   minUnitPass();  // supress warning
