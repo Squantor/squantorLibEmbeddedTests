@@ -9,7 +9,7 @@
 
 class coroutineVoid {
  public:
-  coroutineVoid() : crCurrent{nullptr, false} {}
+  coroutineVoid() = default;
   ~coroutineVoid() = default;
 
   void coroutine(void) {
@@ -63,10 +63,10 @@ coroutineVoid testCoroutineVoid;
 coroutineNonVoid testCoroutineNonVoid;
 
 static void testCoroutineSetup(minunitState *testResults) {
-  testCoroutineVoid.crCurrent.initialized = false;
+  testCoroutineVoid.crCurrent.label = nullptr;
   testCoroutineVoid.coroutineState = 42;
   testCoroutineVoid.coroutineWait = 0;
-  testCoroutineNonVoid.crCurrent.initialized = false;
+  testCoroutineNonVoid.crCurrent.label = nullptr;
   testCoroutineNonVoid.coroutineState = 42;
   testCoroutineNonVoid.coroutineWait = 0;
   minUnitPass();  // supress warning
