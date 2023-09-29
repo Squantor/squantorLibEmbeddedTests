@@ -5,7 +5,7 @@
  * For conditions of distribution and use, see LICENSE file
  */
 #include <MinUnit.h>
-#include <coroutine.h>
+#include <sq_coro.h>
 
 static int voidCoroutineState;
 static int voidCoroutineWait;

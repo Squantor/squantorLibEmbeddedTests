@@ -5,7 +5,7 @@
  * For conditions of distribution and use, see LICENSE file
  */
 #include <MinUnit.h>
-#include <coroutine.hpp>
+#include <sq_coro.hpp>
 
 class coroutineVoid {
  public:
@@ -28,7 +28,7 @@ class coroutineVoid {
     CR_END_V;
   }
 
-  crState crCurrent;
+  util::coroState crCurrent;
   int coroutineState;
   int coroutineWait;
 };
@@ -54,7 +54,7 @@ class coroutineNonVoid {
     CR_END(coroutineState);
   }
 
-  crState crCurrent;
+  util::coroState crCurrent;
   int coroutineState;
   int coroutineWait;
 };
