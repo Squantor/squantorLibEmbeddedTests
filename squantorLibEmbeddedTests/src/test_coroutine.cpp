@@ -13,19 +13,19 @@ class coroutineVoid {
   ~coroutineVoid() = default;
 
   void coroutine(void) {
-    CR_BEGIN;
+    CR_BEGIN(crCurrent);
     coroutineState = 0;
-    CR_YIELD_V;
+    CR_YIELD_V(crCurrent);
     coroutineState = 1;
-    CR_YIELD_V;
+    CR_YIELD_V(crCurrent);
     coroutineState = 2;
-    CR_YIELD_V;
+    CR_YIELD_V(crCurrent);
     coroutineState = 3;
-    CR_WAIT_V(coroutineWait == 1);
+    CR_WAIT_V(crCurrent, coroutineWait == 1);
     coroutineState = 4;
-    CR_STOP_V;
+    CR_STOP_V(crCurrent);
     coroutineState = 6;  // should never be executed
-    CR_END_V;
+    CR_END_V(crCurrent);
   }
 
   util::coroState crCurrent;
@@ -39,19 +39,19 @@ class coroutineNonVoid {
   ~coroutineNonVoid() = default;
 
   int coroutine(void) {
-    CR_BEGIN;
+    CR_BEGIN(crCurrent);
     coroutineState = 0;
-    CR_YIELD(coroutineState);
+    CR_YIELD(crCurrent, coroutineState);
     coroutineState = 1;
-    CR_YIELD(coroutineState);
+    CR_YIELD(crCurrent, coroutineState);
     coroutineState = 2;
-    CR_YIELD(coroutineState);
+    CR_YIELD(crCurrent, coroutineState);
     coroutineState = 3;
-    CR_WAIT(coroutineState, coroutineWait == 1);
+    CR_WAIT(crCurrent, coroutineState, coroutineWait == 1);
     coroutineState = 4;
-    CR_STOP(coroutineState);
+    CR_STOP(crCurrent, coroutineState);
     coroutineState = 6;  // should never be executed
-    CR_END(coroutineState);
+    CR_END(crCurrent, coroutineState);
   }
 
   util::coroState crCurrent;
