@@ -11,10 +11,13 @@
 #include <array>
 
 MINUNIT_ADD(testFormatAppendString, nullptr, nullptr) {
-  std::array<char, 20> input;
-  std::array<char, 20> output{"firstsecond"};
-  std::array<char, 8> first{"first"};
-  std::array<char, 8> second{"second"};
-
+  std::array<char, 15> input;
+  std::array<char, 15> output{"firstsecondthi"};
+  std::array<char, 6> first{"first"};
+  std::array<char, 7> second{"second"};
+  std::array<char, 10> third{"third"};
+  std::span<char> temp = util::appendString(input, first);
+  temp = util::appendString(temp, second);
+  temp = util::appendString(temp, third);
   minUnitCheck(strncmp(input.data(), output.data(), strlen(first.data())) == 0);
 }
