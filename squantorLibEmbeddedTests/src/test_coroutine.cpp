@@ -23,14 +23,20 @@ class coroutineVoid {
     coroutineState = 3;
     CR_WAIT_V(coroutineWait == 1);
     coroutineState = 4;
+    CR_YIELD_V();
+    ++coroutineRestarts;
+    coroutineState = 5;
+    CR_RETRY_V(coroutineWait == 1);
+    coroutineState = 6;
     CR_STOP_V();
-    coroutineState = 6;  // should never be executed
+    coroutineState = 7;  // should never be executed
     CR_END_V();
   }
 
   util::coroState crCurrent;
   int coroutineState;
   int coroutineWait;
+  int coroutineRestarts;
 };
 
 class coroutineNonVoid {
@@ -49,14 +55,20 @@ class coroutineNonVoid {
     coroutineState = 3;
     CR_WAIT(coroutineState, coroutineWait == 1);
     coroutineState = 4;
+    CR_YIELD(coroutineState);
+    ++coroutineRestarts;
+    coroutineState = 5;
+    CR_RETRY(coroutineState, coroutineWait == 1);
+    coroutineState = 6;
     CR_STOP(coroutineState);
-    coroutineState = 6;  // should never be executed
+    coroutineState = 7;  // should never be executed
     CR_END(coroutineState);
   }
 
   util::coroState crCurrent;
   int coroutineState;
   int coroutineWait;
+  int coroutineRestarts;
 };
 
 coroutineVoid testCoroutineVoid;
@@ -66,9 +78,11 @@ static void testCoroutineSetup(minunitState *testResults) {
   testCoroutineVoid.crCurrent.label = nullptr;
   testCoroutineVoid.coroutineState = 42;
   testCoroutineVoid.coroutineWait = 0;
+  testCoroutineVoid.coroutineRestarts = 0;
   testCoroutineNonVoid.crCurrent.label = nullptr;
   testCoroutineNonVoid.coroutineState = 42;
   testCoroutineNonVoid.coroutineWait = 0;
+  testCoroutineNonVoid.coroutineRestarts = 0;
   minUnitPass();  // supress warning
 }
 
@@ -91,6 +105,20 @@ MINUNIT_ADD(testCoroutineVoid, testCoroutineSetup, testCoroutineTeardown) {
   testCoroutineVoid.coroutineWait = 1;
   testCoroutineVoid.coroutine();
   minUnitCheck(testCoroutineVoid.coroutineState == 4);
+  testCoroutineVoid.coroutineWait = 0;
+  testCoroutineVoid.coroutineRestarts = 0;
+  testCoroutineVoid.coroutine();
+  minUnitCheck(testCoroutineVoid.coroutineState == 5);
+  minUnitCheck(testCoroutineVoid.coroutineRestarts == 1);
+  testCoroutineVoid.coroutine();
+  minUnitCheck(testCoroutineVoid.coroutineState == 5);
+  minUnitCheck(testCoroutineVoid.coroutineRestarts == 2);
+  testCoroutineVoid.coroutine();
+  minUnitCheck(testCoroutineVoid.coroutineState == 5);
+  minUnitCheck(testCoroutineVoid.coroutineRestarts == 3);
+  testCoroutineVoid.coroutineWait = 1;
+  testCoroutineVoid.coroutine();
+  minUnitCheck(testCoroutineVoid.coroutineState == 6);
   testCoroutineVoid.coroutine();
   minUnitCheck(testCoroutineVoid.coroutineState == 0);
 }
@@ -110,6 +138,20 @@ MINUNIT_ADD(testCoroutine, testCoroutineSetup, testCoroutineTeardown) {
   testCoroutineNonVoid.coroutineWait = 1;
   minUnitCheck(testCoroutineNonVoid.coroutine() == 4);
   minUnitCheck(testCoroutineNonVoid.coroutineState == 4);
+  testCoroutineNonVoid.coroutineWait = 0;
+  testCoroutineNonVoid.coroutineRestarts = 0;
+  minUnitCheck(testCoroutineNonVoid.coroutine() == 5);
+  minUnitCheck(testCoroutineNonVoid.coroutineState == 5);
+  minUnitCheck(testCoroutineNonVoid.coroutineRestarts == 1);
+  minUnitCheck(testCoroutineNonVoid.coroutine() == 5);
+  minUnitCheck(testCoroutineNonVoid.coroutineState == 5);
+  minUnitCheck(testCoroutineNonVoid.coroutineRestarts == 2);
+  minUnitCheck(testCoroutineNonVoid.coroutine() == 5);
+  minUnitCheck(testCoroutineNonVoid.coroutineState == 5);
+  minUnitCheck(testCoroutineNonVoid.coroutineRestarts == 3);
+  testCoroutineNonVoid.coroutineWait = 1;
+  minUnitCheck(testCoroutineNonVoid.coroutine() == 6);
+  minUnitCheck(testCoroutineNonVoid.coroutineState == 6);
   minUnitCheck(testCoroutineNonVoid.coroutine() == 0);
   minUnitCheck(testCoroutineNonVoid.coroutineState == 0);
 }
